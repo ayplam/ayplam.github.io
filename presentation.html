@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Presentation</title>
+
+      <meta charset="utf-8">
+
+	<!-- Little icon at top -->
+	<link rel="shortcut icon" href="/static/Banzaitokyo-Medico-Caduceus.ico">
+		
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" type="text/css" href="/css/theme.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/nv.d3.css">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">	  
+
+	<script type="text/javascript" src="/js/bootstrap.js"> </script>
+	<script type="text/javascript" src="/js/d3.v3.js"> </script>
+	<script type="text/javascript" src="/js/nv.d3.js"> </script>
+	<script type="text/javascript" src="/js/underscore.js"> </script>
+	<script type="text/javascript" src="/js/stack.v1.min.js"> </script>
+
+      <style>
+
+      .chart rect {
+        fill: steelblue;
+      }
+
+      .chart text {
+        fill: white;
+        font: 10px sans-serif;
+        text-anchor: end;
+      }
+
+      </style>
+
+  </head>
+    <body>
+
+
+<style>
+section {
+  background: #fff;
+  color: #000;
+  padding: 2em;
+  font-family: "PT Serif", Baskerville, Georgia;
+}
+#follow {
+  background: none;
+}
+.grey {
+  color: #777;
+}
+a:link,
+a:visited {
+  color: orange;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+</style>
+
+
+<!-- SLIDE 0 -->
+<section style="text-align:center;padding-top:5em;">
+
+      <div class="jumbotron">
+        <h1>
+          <center>
+            <b>Generic Drug <br> Launch Prediction
+            </b>
+          </center>          
+        <small class="text-info"><strong>
+          Adrian Lam </strong>
+          <br>
+          July 17 2015
+          <br>
+        </small>
+        </h1>
+        <p class="text-muted"> <a href="http://www.thedataincubator.com">The Data Incubator</a> </p>
+      </div>
+</section>
+
+<!-- SLIDE 1 -->
+
+<section id="background" style="text-align:center;padding:1.0em;font-size:90%">
+  
+  <div id="background" position="fixed" class="container">
+    <center>
+      <br><br>
+    <strong>Background</strong>
+
+    <svg style="height:450px"></svg>
+    
+
+  <script>
+
+    nv.addGraph(function() {
+        var chart = nv.models.multiBarChart()
+          .transitionDuration(350)
+          .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
+          .rotateLabels(0)      //Angle to rotate x-axis labels.
+          .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+          .groupSpacing(0.1)    //Distance between each group of bars.
+          .tooltips(true)
+        ;
+
+        chart.xAxis
+            .tickFormat(d3.format('d'))
+            .axisLabel('Year');
+
+        chart.yAxis
+            .tickFormat(d3.format(',1f'))
+
+        d3.select('#background svg')
+            .datum(getBgData())
+            .call(chart);
+
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+    });
+
+
+    function getBgData() {
+      var input = '{{ drughistory }}'
+      input = input.replace(/&#34;/g,'"')
+      data_obj = JSON.parse(input)
+
+      return data_obj
+    }
+
+  </script>
+
+  <style>
+      #background svg { width: 100%; height: 80%;}
+  </style>
+
+</div>
+
+</section>
+
+<!-- D3 SLIDE 2  -->
+
+<section id="database" style="padding-top:2em;">
+
+  <div id="Databases" position="fixed" class="container">
+    <div class="row">
+        <div class="col-xs-6" style="font-size:50px;"> <center><strong> Databases </strong> </center></div>    
+    </div>   
+
+  </div>
+
+  <div>
+      <ul>
+      <p class="text-left">
+      <div class="row" style="font-size:25px;">
+        <li>  <a href="fda.gov/Drugs/InformationOnDrugs/ucm142438.htm">FDA Drug Directory</a> </li>
+      </div>
+      <div class="FDA-sample" data-example-id="hoverable-table" style="font-size:13px;font-family:Courier New">
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr></tr>
+            <tr>
+              <th>NDC</th>
+              <th>Brand/Bx Name </th>
+              <th>Generic/Gx Name  </th>
+              <th>Dosage Form</th>
+              <th>Route Name</th>
+              <th>FDA Market Date</th>
+              <th>Appl #</th>
+              <th>Supplier</th>
+              <th>Est Pharm Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+              <td>54868-5831</td>
+              <td>Precose</td>
+              <td>Acarbose</td>
+              <td>Tablet</td>
+              <td>Oral</td>
+              <td>2007-11-19</td>
+              <td>NDA020482</td>
+              <td>Physicians Total</td>
+              <td>Alpha Glucosidase Inhibitor</td>
+
+            </tr>
+
+            <tr>
+              <td>16252-524</td>
+              <td>Acarbose</td>
+              <td>Acarbose</td>
+              <td>Tablet</td>
+              <td>Oral</td>
+              <td>2008-05-07</td>
+              <td>ANDA077532</td>
+              <td>Actavis Pharma</td>
+              <td>Glucosidase Inhibitor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row" style="font-size:25px;">
+        <li>McKesson Launch Data </li>
+      </div>
+      <div class="MCK-sample" data-example-id="hoverable-table" style="font-size:15px;font-family:Courier New">
+        <table class="table table-hover">
+          <thead>
+            <tr></tr>
+            <tr>
+              <th>NDC-McK</th>
+              <th>Supplier</th>
+              <th>Generic (Gx) Name</th>
+              <th>Brand (Bx) Name</th>
+              <th>Dosage Form</th>
+              <th>McK Market Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+              <td>16252052401</td>
+              <td>Cobalt Laboratories</td>
+              <td>Acarbose</td>
+              <td>Precose</td>
+              <td>Tablet</td>
+              <td>2008-05-09</td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row" style="font-size:25px;">
+        <li> <a href="http://www.accessdata.fda.gov/scripts/cder/ob/eclink.cfm">Orange Book of Therapeutic Equivalences</a> </li>
+      </div>
+
+      <img src="/static/LKLJUia.png') }}" alt="Orange Book">
+
+      </p>
+    </ul>
+
+</section>
+
+<!-- SLIDE 3 -->
+
+<section id="goal" style="padding-top:5em;">
+
+  <div id="Goals" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div class="col-xs-6" style="font-size:60px;"> <center><strong> Goals </strong> </center></div>    
+    </div>   
+
+  </div>
+
+  <div>
+      <ul>
+      <p class="text-left">
+        <br>  
+      <div class="row">
+        <div class="col-md-2"> </div>
+        <div class="col-md-10">
+          <li>  To predict the release of a generic counterpart </li>
+          <li>  Perform time-series analysis of generic launches </li>
+          <li>  Cluster supplier yearly releases </li>
+        </div>
+      </p>
+    </ul>
+    
+  </div>
+    
+</section>
+
+<!-- SLIDE 4 -->
+
+<section id="goal" style="padding-top:5em;">
+
+
+  <div id="Goals1" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div class="col-xs-6" style="font-size:60px;"> <center><strong> Goals </strong> </center></div>    
+    </div>   
+
+  </div>
+
+  <div>
+      <ul>
+      <p class="text-left">
+        <br>  
+      <div class="row">
+        <div class="col-md-2"> </div>
+        <div class="col-md-10">
+          <li> <strong> To predict the release of a generic counterpart </strong> </li>
+          <li class="text-muted">  Perform time-series analysis of generic launches </li>
+          <li class="text-muted">  Cluster supplier yearly releases </li>
+        </div>
+      </p>
+    </ul>
+    
+  </div>
+    
+</section>
+
+<!-- SLIDE 5 -->
+
+<section id="epcmethods" style="padding-top:2em;">
+
+  <div id="epcmethods" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div style="font-size:50px;"> <center><strong> Modeling Parameters <br> <br> </strong> </center></div>    
+        
+    </div>   
+  </div>
+
+  <div class="row">
+    <div class="col-md-5 bs-callout bs-callout-info">
+    
+      <center><b> Features </b></center>
+    
+    
+      Brand Date of Release
+      <li style="font-size:28px"> FDA Market Date </li>
+      Pharmaceutical Class
+      <li style="font-size:28px"> Atypical antipsychotic, Antiarrhythmic, Corticosteroid </li>
+      Dosage Form
+      <li style="font-size:28px"> Tablet, Cream, Aerosol</li>
+    </div>
+    
+    <br><br><br>
+    <div class="col-md-1"> </div>
+    <div class="col-md-6 bs-callout bs-callout-danger">
+      
+      <center><b> Prediction </b><center>
+      <center>Brand-to-Gx Conversion Time (yrs) </center>
+    </div>
+  </div>
+    
+</section>
+
+<!-- NV SLIDE 6 -->
+
+<section style="text-align:center;padding:2.0em;font-size:90%;height:1000px">
+
+  <!-- <p>Pharmaceutical Model for Prediction</p> -->
+
+  <div id="epcdose" class="row" style="70px">
+    <center>
+      <br> <strong>
+      Brand-to-Gx: Predicted vs True
+    </strong>
+    </center>
+  </div>
+
+  <div id="epcdose" position="fixed" class="row">
+    <div class="col-md-7">
+
+    <svg style="height:500px;width:700px">
+    </svg>
+
+  <script>
+
+    nv.addGraph(function() {
+      var chart_epc = nv.models.scatterChart()
+                    .showDistX(true)    //showDist, when true, will display those little distribution lines on the axis.
+                    .showDistY(true)
+                    .transitionDuration(350)
+                    .forceY([-0.5,19])
+                    .forceX([-0.5,19])
+                    .showLegend(false)
+                    .color(d3.scale.category20().range());
+
+      // Configure how the tooltip looks.
+      chart_epc.tooltipXContent(function(key,x,y) {
+          var splitkey = key.split('; ')
+          return '<h6>' + splitkey[0] + 
+          '</h6> <h6>' + splitkey[1] + 
+          '</h6> <h6>Error: ' + Math.round(Math.abs(x-y)*100)/100 + ' yrs';
+      });
+
+
+      //Axis settings
+      chart_epc.xAxis
+        .tickFormat(d3.format('1.f'))
+        .axisLabel('True: Years for Conversion');
+      chart_epc.yAxis
+        .axisLabel('Predicted: Years for Conversion');
+      
+      console.log(d3.scale.category20().range())
+
+      d3.select('#epcdose svg')
+          .datum(formatEpcData())
+          .call(chart_epc);
+
+      nv.utils.windowResize(chart_epc.update);
+    
+      return chart_epc;
+
+    });
+
+
+    function formatEpcData() {
+
+      var input = '{{ epcdose }}'
+      input = input.replace(/&#34;/g,'"')
+      data = JSON.parse(input)
+
+      formatteddata = []
+
+      for (i=0; i < data.length; i++) {
+
+        var groupname = "Brand Name: ".concat(data[i].bxname,"; Generic Name: ",data[i].gxname)
+
+        formatteddata.push({            
+          key: groupname,
+          values: []
+        })
+
+        formatteddata[i].values.push({
+          x: data[i].true, 
+          y: data[i].predict, 
+          size: 5, 
+          shape: 'circle'
+        })
+      }
+
+      console.log(formatteddata)
+
+      return formatteddata;
+
+    }
+
+  </script>
+
+  <style>
+      #epcdose svg { width: 100%; height: 80%;}
+  </style>
+
+  </div>
+
+
+  <div class="col-md-5 text-left bs-callout bs-callout-warning">
+    <br>
+    Ridge Regression
+    <li> Leave-one-out Cross-Validation</li>
+    <li> R<sup>2</sup>: 0.829 </li>
+    <li> RMSE: 2.00 years </li>
+    <li> Abs Mean Err: 1.56 years </li>
+    <br>
+  </div>
+  
+</section>
+
+<!-- NV SLIDE 7 -->
+
+<section id="epcresults" style="padding-top:3em;">
+
+  <div id="epcresults" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div style="font-size:50px;"> <center><strong>Brand-to-Gx Conclusions<br> <br> </strong> </center></div>    
+        
+    </div>   
+  </div>
+
+  <div class="col-md-8">
+
+    <div class="bs-callout bs-callout-warning" id="epcresult1">
+    Insufficient Data for Accurate Prediction
+    <li> Patent/Exclusivity time unknown </li>
+    <li> Incomplete pharmaceutical class data </li>
+    </div>
+    
+
+    <div class="bs-callout bs-callout-success" id="epcresult2">
+    Database of:
+    <li> patent/exclusivity duration  </li>
+    <li> patent extensions </li>
+    &emsp; would greatly benefit model
+    </div>
+
+  </div>
+
+
+</section>
+
+
+<section id="goal2" style="padding-top:5em;">
+
+  <div id="Goals2" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div class="col-xs-6" style="font-size:60px;"> <center><strong> Goals </strong> </center></div>    
+    </div>   
+
+  </div>
+
+  <div>
+      <ul>
+      <p class="text-left">
+        <br>  
+      <div class="row">
+        <div class="col-md-2"> </div>
+        <div class="col-md-10">
+          <li class="text-muted">  To predict the release of a generic counterpart </li>
+          <li> <strong> Perform time-series analysis of generic launches </strong> </li>
+          <li class="text-muted">  Cluster supplier yearly releases </li>
+        </div>
+      </p>
+    </ul>
+    
+  </div>
+    
+</section>
+
+
+<section id="timeseries_dow" style="padding-top:1em;">
+
+  <div id="dow" class="container">
+    <center>
+      <br><br>
+      <div style="font-size:45px"> <strong> Releases Grouped By Day of Week (2006 - Current) </strong></div>
+
+    <form name="dowradio" style="font-size:20px;font-weight:100">
+
+      <label>
+        <input type="radio" name="optionsRadios" id="dowRadios1" value=1 checked>
+        Total Releases &emsp; 
+      </label>
+      <label>
+        <input type="radio" name="optionsRadios" id="dowRadios2" value=2>
+        Scaled Releases &emsp; 
+      </label>
+      <label>
+        <input type="radio" name="optionsRadios" id="dowRadios3" value=3>
+        Lagged Releases
+      </label>
+
+    </form>
+
+        </center>
+    <svg style="height:450px"></svg>
+    
+  <script>
+
+    var rad = document.dowradio.optionsRadios
+    var prev = null;
+
+    for(var i = 0; i < rad.length; i++) {
+        rad[i].onclick = function() {
+            (prev)? console.log(prev.value):null;
+            if(this !== prev) {
+                prev = this;
+            }
+
+            makeDayOfWeekChart()
+
+        };
+    }
+
+    makeDayOfWeekChart()
+
+    function makeDayOfWeekChart() {
+
+      nv.addGraph(function() {
+          var chart = nv.models.lineChartAL()
+                        .margin({left: 100, top: 100})  //Adjust chart margins to give the x-axis some breathing room.
+                        .transitionDuration(350)  //how fast do you want the lines to transition?
+                        .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
+                        .showYAxis(true)        //Show the y-axis
+                        .showXAxis(true)        //Show the x-axis
+          ;
+
+      var weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+      var formatDay = function(d) {
+          return weekdays[d % 7];      
+      }              
+
+      chart.xAxis
+          .tickValues([0,1,2,3,4,5,6])
+          .tickFormat(formatDay)
+          .axisLabel('Day Of Week');
+
+      var bool1 = document.getElementById('dowRadios1').checked
+
+      if (bool1) {
+        chart.yAxis
+            .tickFormat(d3.format(',2f'))
+            .axisLabel('Total Releases 2006-Current')
+      } else {
+        chart.yAxis
+            .tickFormat(d3.format('.2f'))
+            .axisLabel('% of Total Releases 2006-Current')
+      }
+
+      d3.select('#dow svg')
+          .datum(getData())
+          .call(chart);
+
+          nv.utils.windowResize(chart.update);
+
+          return chart;
+      });
+
+    }
+
+    function getData() {
+      var input = '{{ dow }}'
+
+      var bool1 = document.getElementById('dowRadios1').checked
+      var bool3 = document.getElementById('dowRadios3').checked
+
+      console.log("GRAB DATA")
+
+      // Total sum of all releases for days of the week
+      if (! bool1) {
+        mx = [25191, 1431]
+      } else {
+        mx = [1,1]
+      }
+
+      input = input.replace(/&#34;/g,'"')
+      data_obj = JSON.parse(input)
+
+      console.log(data_obj[0].values[5].y )
+
+      if (bool3) {
+
+        var tmp = []
+
+        for (j=0; j < data_obj[1].values.length; j++) {
+          tmp.push(data_obj[1].values[j].y)
+        }
+
+        console.log(tmp)
+
+        var lag = tmp.concat(tmp.splice(0,1));
+
+        for (j=0; j < data_obj[1].values.length; j++) {
+          data_obj[1].values[j].y = lag[j]
+        }
+
+
+      }      
+
+      for (i=0; i < data_obj.length; i++) {
+        for (j=0; j < data_obj[i].values.length; j++) {
+          data_obj[i].values[j].y = data_obj[i].values[j].y / mx[i]
+        }
+      }
+
+      console.log(data_obj)
+
+      return data_obj
+    }
+
+  </script>
+
+  <style>
+      #dow svg { width: 100%; height: 80%;}
+  </style>
+
+</section>
+
+<section>
+
+  <div id="releaseOverTime" position="fixed" class="row" style:"60px">
+    <center>
+      <br> <strong>
+      Releases Over Time: 2009 - Current
+    </strong>
+    </center>
+  </div>
+
+
+<div>
+
+  <div id="releasesovertime">
+    <center>
+    <form name="releaseradio" style="font-size:20px;font-weight:100">
+      <label>
+        <input type="radio" name="optionsRadios" id="releaseRadios1" value=1 checked>
+        Total releases &emsp; 
+      </label>
+      <label>
+        <input type="radio" name="optionsRadios" id="releaseRadios2" value=2>
+        "Large" Releases &emsp; 
+      </label>
+
+
+    </form>
+
+        </center>
+    <svg style="height:450px"></svg>
+      
+    <script>
+
+      var rad = document.releaseradio.optionsRadios
+      var prev = null;
+
+      for(var i = 0; i < rad.length; i++) {
+          rad[i].onclick = function() {
+              (prev)? console.log(prev.value):null;
+              if(this !== prev) {
+                  prev = this;
+              }
+
+              makeThrehsoldChart()
+
+          };
+      }    
+
+      makeThrehsoldChart()
+
+      function dateFromDay(year, day){
+        var date = new Date(year, 0,1); // initialize a date in `year-01-01`
+        return new Date(date.setDate(day+1)); // add the number of days
+      }
+
+      function makeThrehsoldChart() {
+        nv.addGraph(function() {
+          var chart = nv.models.lineChartAL()
+                        .margin({left: 100, top: 100})  //Adjust chart margins to give the x-axis some breathing room.
+                        .transitionDuration(350)  //how fast do you want the lines to transition?
+                        .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
+                        .showYAxis(true)        //Show the y-axis
+                        .showXAxis(true)        //Show the x-axis
+          ;
+
+          chart.xAxis     //Chart x-axis settings
+              .axisLabel('Time (Years)')
+              .tickValues([2009,2010,2011,2012,2013,2014,2015])
+              .tickFormat(d3.format('.f'));
+
+          chart.yAxis     //Chart y-axis settings
+              .axisLabel('Number Of Releases')
+              .tickFormat(d3.format('f'));
+
+          d3.select('#releasesovertime svg')    //Select the <svg> element you want to render the chart in.
+              .datum(getReleaseData())         //Populate the <svg> element with chart data...
+              .call(chart);          //Finally, render the chart!
+
+          chart.tooltipContent(function(key,x,y) {
+              console.log(x, Math.round(x), parseInt(( x-Math.round(x) )*365))
+              var datevar = dateFromDay(Math.round(x), parseInt(( x-Math.round(x) )*365) )
+              var datestr = datevar.toString();
+              console.log(datestr)
+              return '<h4> &emsp;' +  parseInt(y) + ' releases </h4><h4>  &emsp;on ' + datestr.substring(4, 15)  + '  &emsp; </h4>';
+          });
+
+          //Update the chart when window resizes.
+          // nv.utils.windowResize(function() { chart.update() });
+          return chart;
+        });
+      }
+
+      function getReleaseData() {
+        var input = '{{ releases }}'
+        input = input.replace(/&#34;/g,'"')
+        var data_obj = JSON.parse(input)
+
+        var bool1 = document.getElementById('releaseRadios2').checked
+
+        if (bool1) {
+          for (var i=0; i < data_obj[0].values.length; i++) {
+            if (data_obj[0].values[i].y < 35) {
+              data_obj[0].values[i].y = 0
+            }
+          }
+        }
+
+        return data_obj
+      }
+
+    </script>
+
+<style>
+  #releasesovertime svg { width: 100%; height: 100%;}
+</style>  
+
+</section>
+
+
+
+<section id="timeseries_fft" style="padding-top:1em;">
+
+  <div id="freqfft_desc">
+    <center>
+      <br> <h1> Frequency Analysis: Fourier Transform </h1>
+    </center>
+  </div>
+
+  <div id="freqfft"> 
+    <svg style="height:400px"></svg>      
+    <script>
+
+      nv.addGraph(function() {
+        var chart = nv.models.lineChartAL()
+                      .transitionDuration(350)  //how fast do you want the lines to transition?
+                      .showLegend(false)       //Show the legend, allowing users to turn on/off line series.
+                      .showYAxis(true)        //Show the y-axis
+                      .showXAxis(true)        //Show the x-axis
+        ;
+
+        chart.xAxis     //Chart x-axis settings
+            .axisLabel('Frequency of Releases (Every N Days/Year)')
+            .tickFormat(d3.format('f'));
+
+        chart.yAxis     //Chart y-axis settings
+            .axisLabel('Magnitude')
+            .tickFormat(d3.format('.02f'));
+
+        d3.select('#freqfft svg')    //Select the <svg> element you want to render the chart in.
+            .datum(getFrequencyData())         //Populate the <svg> element with chart data...
+            .call(chart);          //Finally, render the chart!
+
+
+        //Update the chart when window resizes.
+        nv.utils.windowResize(function() { chart.update() });
+        return chart;
+      });  
+
+      function getFrequencyData() {
+        var input = '{{ freq }}'
+        input = input.replace(/&#34;/g,'"')
+        data_obj = JSON.parse(input)
+
+        return data_obj
+      }
+    </script>
+
+    <style>
+        #freqfft svg { width: 100%; height: 80%;}
+    </style>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Peak frequency at ~2 months </h2>
+      <h3>
+        <li> Large release: 35 products released on single day (top 97.5% of all releases) </li>
+        <li> 23% chance of another large release 59-66 days after current large release </li>
+        <li> 40% chance of another large release 2-3 months after current large release </li>
+      </h3>
+    </div>
+  </div>
+
+</section>
+
+
+<section id="fftresults" style="padding-top:3em;">
+
+  <div id="fftresults" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div style="font-size:60px;"> <center><strong>Time-Series Conclusions<br> <br> </strong> </center></div>    
+        
+    </div>   
+  </div>
+
+  <div class="col-md-2"></div>
+  <div class="col-md-8 bs-callout bs-callout-success">
+    <li> Potential 1-day lag in McKesson generic launch operations</li>
+    <li> Improvement on monthly sales forecast by accounting for previous large releases </li>
+  </div>
+
+</section>
+
+<section id="goal3" style="padding-top:5em;">
+
+  <div id="Goals3" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div class="col-xs-6" style="font-size:60px;"> <center><strong> Goals </strong> </center></div>    
+    </div>   
+
+  </div>
+
+  <div>
+      <ul>
+      <p class="text-left">
+        <br>  
+      <div class="row">
+        <div class="col-md-1"> </div>
+        <div class="col-md-10">
+          <li class="text-muted">  To predict the release of a generic counterpart </li>
+          <li class="text-muted">  Perform time-series analysis of generic launches </li>
+          <li> <strong> Cluster supplier yearly releases </strong> </li>
+        </div>
+      </p>
+    </ul>
+    
+  </div>
+    
+</section>
+
+
+<section id="pcamethods" style="padding-top:2em;">
+
+  <div id="pcamethods" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div style="font-size:60px;"> <center><strong> PCA Factorization <br> <br> </strong> </center></div>    
+        
+    </div>   
+  </div>
+
+
+  <div>
+    <div class="row" style="font-size:45px">
+      <center><b> Feature </b> <center>
+    </div>
+    
+    <div class="col-md-1"> </div>
+    <div class="col-md-11" style="font-size:40px">
+      <br>
+      &emsp; &emsp; Yearly Release for Suppliers
+    </div>
+  
+    <div class="col-md-2 "> </div>
+    <div class="col-md-10" style="font-size:32px">
+      <li> Time: 2011 - 2014 </li>
+      <li> > 50 releases in time period </li>
+      <br>
+    </div>
+
+
+  <div class="PCA-components" data-example-id="hoverable-table" style="font-size:15px;font-family:Courier New">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr></tr>
+        <tr>
+          <th> &emsp; </th>
+          <th>Jan</th>
+          <th>Feb</th>
+          <th>Mar</th>
+          <th>Apr</th>
+          <th>May</th>
+          <th>Jun</th>
+          <th>Jul</th>
+          <th>Aug</th>
+          <th>Sep</th>
+          <th>Oct</th>
+          <th>Nov</th>
+          <th>Dec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> 2011 Actavis Pharma </td>
+          <td>0</td><td>0</td><td>6</td><td>2</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>1</td><td>2</td><td>2</td>
+        </tr><tr>
+          <td> 2012 Actavis Pharma </td>
+          <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>3</td><td>6</td>
+        </tr><tr>
+          <td> 2013 Actavis Pharma </td>
+          <td>2</td><td>0</td><td>7</td><td>4</td><td>0</td><td>0</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td>
+        </tr><tr>
+          <td> 2014 Actavis Pharma </td>
+          <td>3</td><td>9</td><td>5</td><td>0</td><td>3</td><td>7</td><td>0</td><td>0</td><td>4</td><td>2</td><td>4</td><td>5</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    
+</section>
+
+<section id="pcacomp" style="padding-top:3em;">
+
+  <div id="Databases" position="fixed" class="container">
+    <div class="row">
+        <div class="col-xs-6" style="font-size:50px;"> <center><strong> PCA: 1st Component </strong> </center></div>    
+        <br>
+        <br>  
+    </div>   
+
+
+  <div class="PCA-components" data-example-id="hoverable-table" style="font-size:15px;font-family:Courier New">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr></tr>
+        <tr>
+          <th>Variance</th>
+          <th>Jan</th>
+          <th>Feb</th>
+          <th>Mar</th>
+          <th>Apr</th>
+          <th>May</th>
+          <th>Jun</th>
+          <th>Jul</th>
+          <th>Aug</th>
+          <th>Sep</th>
+          <th>Oct</th>
+          <th>Nov</th>
+          <th>Dec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> 0.52</td>
+          <td><strong>0.925</strong></td>
+          <td>-0.077</td>
+          <td>-0.163</td>
+          <td>-0.073</td>
+          <td>-0.29</td>
+          <td>-0.106</td>
+          <td>-0.077</td>
+          <td>-0.03</td>
+          <td>-0.047</td>
+          <td>-0.033</td>
+          <td>0.003</td>
+          <td>-0.031</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<center>Top Weights <br><center>
+<div class="PCA-components" data-example-id="hoverable-table" style="font-size:15px;font-family:Courier New">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr></tr>
+        <tr>
+          <th> Supplier (Short) </th>
+          <th>Jan</th>
+          <th>Feb</th>
+          <th>Mar</th>
+          <th>Apr</th>
+          <th>May</th>
+          <th>Jun</th>
+          <th>Jul</th>
+          <th>Aug</th>
+          <th>Sep</th>
+          <th>Oct</th>
+          <th>Nov</th>
+          <th>Dec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> 2014 DIRECT RX </td>
+          <td>255</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        </tr>
+        <tr>
+          <td> 2013 STATE FLORIDA </td>
+          <td>95</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 1</td><td> 0</td><td> 0</td><td>1</td>
+        </tr>
+        <tr>
+          <td> 2014 STATE FLORIDA </td>
+           <td>57</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 1</td><td>50</td><td> 0</td>
+
+        </tr>
+        <tr>
+          <td> 2012 PREFERRED PHARMACEUTICALS </td>
+           <td>56</td><td>26</td><td>25</td><td>24</td><td> 3</td><td> 8</td><td>17</td><td> 3</td><td> 4</td><td> 6</td><td> 5</td><td> 4</td>
+
+        </tr>
+        <tr>
+          <td> 2011 CARDINAL HEALTH </td>
+           <td>40</td><td>15</td><td> 9</td><td> 8</td><td>41</td><td>36</td><td>22</td><td>23</td><td> 6</td><td>14</td><td>11</td><td> 1</td>
+
+        </tr>
+        <tr>
+          <td> 2011 CAMBER PHARMACEUTICALS </td>
+           <td>21</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td> 0</td><td>11</td><td> 3</td>
+
+        </tr>
+        <tr>
+          <td> 2013 AVKARE</td>
+           <td>26</td><td> 9</td><td> 5</td><td> 0</td><td> 5</td><td> 8</td><td> 3</td><td> 5</td><td>13</td><td> 8</td><td> 3</td><td>10</td>
+
+        </tr>
+        <tr>
+          <td> 2013 MCKESSON CONTRACT </td>
+           <td>14</td><td> 5</td><td> 2</td><td> 1</td><td> 0</td><td> 0</td><td> 0</td><td> 1</td><td> 2</td><td> 2</td><td> 0</td><td> 0</td>
+        </tr>                                                
+      </tbody>
+    </table>
+  </div>  
+
+</section>
+
+
+<section id="pcacomp" style="padding-top:3em;">
+
+  <div id="Databases" position="fixed" class="container">
+    <div class="row">
+        <div class="col-xs-6" style="font-size:50px;"> <center><strong> PCA: 1st Component </strong> </center></div>    
+        <br>
+        <br>  
+    </div>   
+
+
+  <div class="PCA-components" data-example-id="hoverable-table" style="font-size:15px;font-family:Courier New">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr></tr>
+        <tr>
+          <th>Variance</th>
+          <th>Jan</th>
+          <th>Feb</th>
+          <th>Mar</th>
+          <th>Apr</th>
+          <th>May</th>
+          <th>Jun</th>
+          <th>Jul</th>
+          <th>Aug</th>
+          <th>Sep</th>
+          <th>Oct</th>
+          <th>Nov</th>
+          <th>Dec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> 0.52</td>
+          <td>0.925</td>
+          <td><strong>-0.077</strong></td>
+          <td><strong>-0.163</strong></td>
+          <td><strong>-0.073</strong></td>
+          <td><strong>-0.29</strong></td>
+          <td><strong>-0.106</strong></td>
+          <td><strong>-0.077</strong></td>
+          <td>-0.03</td>
+          <td>-0.047</td>
+          <td>-0.033</td>
+          <td>0.003</td>
+          <td>-0.031</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+<center>Lowest Weights <br><center>
+<div class="PCA-low-components" data-example-id="hoverable-table" style="font-size:15px;font-family:Courier New">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr></tr>
+        <tr>
+          <th> Supplier (Short) </th>
+          <th>Jan</th>
+          <th>Feb</th>
+          <th>Mar</th>
+          <th>Apr</th>
+          <th>May</th>
+          <th>Jun</th>
+          <th>Jul</th>
+          <th>Aug</th>
+          <th>Sep</th>
+          <th>Oct</th>
+          <th>Nov</th>
+          <th>Dec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr> <td>2013 REMEDYREPACK</td>
+          <td> 6</td><td> 86</td><td>124</td><td> 45</td><td>214</td><td> 80</td><td> 44</td><td> 13</td><td> 28</td><td> 26</td><td> 25</td><td> 21</td>
+        </tr>
+        <tr> <td>2011 REMEDYREPACK</td>
+          <td> 2</td><td>  1</td><td> 39</td><td> 72</td><td> 50</td><td> 45</td><td> 65</td><td> 65</td><td> 52</td><td> 30</td><td> 34</td><td> 37</td>
+        </tr>
+        <tr> <td>2014 NORTHWIND PHARMACEUTICALS</td>
+          <td> 0</td><td>  2</td><td>  6</td><td> 13</td><td> 27</td><td> 19</td><td> 16</td><td>  8</td><td> 13</td><td> 12</td><td> 15</td><td> 12</td>
+        </tr>
+        <tr> <td>2011 MCKESSON CONTRACT</td>
+          <td> 1</td><td>  0</td><td>  0</td><td>  0</td><td>  0</td><td>  0</td><td>  0</td><td>  5</td><td> 33</td><td> 48</td><td> 16</td><td> 17</td>
+        </tr>
+        <tr> <td>2012 MYLAN PHARMACEUTICALS</td>
+          <td> 0</td><td>  6</td><td>  1</td><td>  1</td><td>  9</td><td>  4</td><td>  8</td><td> 19</td><td> 18</td><td> 19</td><td>  4</td><td> 19</td>
+        </tr>
+        <tr> <td>2013 AMERICAN HEALTH</td>
+          <td> 3</td><td>  5</td><td>  2</td><td>  0</td><td> 15</td><td> 31</td><td> 56</td><td>  2</td><td>  4</td><td>  7</td><td>  3</td><td> 11</td>
+        </tr> 
+        <tr> <td>2013 BLENHEIM PHARMACAL</td>
+          <td> 3</td><td>  0</td><td>  5</td><td>  0</td><td>  0</td><td>  1</td><td>  3</td><td>  3</td><td> 12</td><td> 19</td><td> 52</td><td> 15</td>
+        </tr> 
+        <tr> <td>2012 APOTEX CORP</td>
+          <td> 0</td><td>  3</td><td> 14</td><td>  8</td><td> 13</td><td>  0</td><td>  0</td><td>  4</td><td>  6</td><td>  7</td><td>  7</td><td>  5</td>
+        </tr>
+        <tr> <td>2014 REMEDYREPACK</td>
+          <td>14</td><td> 27</td><td> 24</td><td> 23</td><td> 20</td><td> 21</td><td>  8</td><td> 21</td><td> 11</td><td> 26</td><td> 15</td><td> 18</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</section>
+
+
+<section id="fftresults" style="padding-top:2em;">
+
+  <div id="fftresults" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div style="font-size:50px;"> <center><strong>Future Direction & Implications<br> <br> </strong> </center></div>
+        
+    </div>   
+  </div>
+
+  <div class="col-md-8 bs-callout bs-callout-info">
+  <ul>
+  
+    <li> Isolate suppliers from repackagers </li>
+    <li> Use ratios of weights to help cluster </li>
+    <li> Compare to NMF for clustering ability </li>
+    <li> Determine predictive ability of clusters for future releases </li>
+  
+  </ul>
+  </div>
+
+  <div class="col-md-8 bs-callout bs-callout-success">
+  
+  Ability to cluster suppliers to:
+  <li> Predict probability supplier release per month </li>
+  <li> Improve monthly sales forecast </li>
+  
+  </div>  
+      
+</section>
+
+
+
+<section id="fin" style="padding-top:3em;">
+
+  <div id="fin" position="fixed" class="container">
+    <br>
+    <div class="row">
+        <div style="font-size:60px;"> <center><strong>Thank You<br> <br> </strong> </center></div>    
+        
+    </div>   
+  </div>
+
+  <div class = "row">
+    <div class="col-md-6">
+      Acknowledgements
+      <li> Yvonne Edmonds, PhD </li> 
+      <li> McKesson Corporation </li> 
+      <li> The Data Incubator </li>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <img src="/static/BtcrhNk.png') }}" alt="McK">
+      <img src="/static/dK51Rj1.png') }}" alt="FDA">
+    </div>
+  <div>
+
+  <center><img src="/static/ttUHr9Q.png') }}" alt="datainc"></center>
+  
+
+</section>
+
+
+<section>
+
+<h1><center><br><br><br><br> <i>fin</i> </h1>
+
+<script>
+
+  var mystack = stack()
+      .on("activate", activate)
+      .on("deactivate", deactivate);
+
+
+  var section = d3.selectAll("section"),
+      follow = d3.select("#follow"),
+      followAnchor = d3.select("#follow-anchor"),
+      followIndex = section[0].indexOf(follow.node());
+   
+
+  function refollow() {
+    followAnchor.style("top", (followIndex + (1 - mystack.scrollRatio()) / 2 - d3.event.offset) * 100 + "%");
+  }
+
+  function activate(d, i) {
+    console.log(i)
+    if (i === followIndex) mystack.on("scroll.follow", refollow);
+    else refreshgraph();
+    // if (i === 1) refreshgraph();
+    // if (i === 4) refreshgraph();
+    // if (i === 6) refreshgraph();
+  }
+
+  function deactivate(d, i) {
+    if (i === followIndex) mystack.on("scroll.follow", null);
+    // else removegraph();
+    // if (i === 1) removegraph();
+    // if (i === 4) removegraph();
+    // if (i === 6) removegraph();
+  }
+
+  function refreshgraph() {
+
+    if (nv && nv.graphs) {
+                nv.graphs.forEach(function(nvGraph) {
+                    nvGraph.update();
+                });
+            }    
+
+  }
+
+  function removegraph() {
+
+    d3.selectAll("svg > *").remove();
+
+  }
+
+</script>
+
+
+      </div>
+
+</div>  
+
+</section>
+
+
+
+</body>
+
+    
+
+</html>
+

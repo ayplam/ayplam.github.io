@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Background</title>
+
+      <meta charset="utf-8">
+	  
+		<!-- Little icon at top -->
+		<link rel="shortcut icon" href="/static/Banzaitokyo-Medico-Caduceus.ico">
+			
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" type="text/css" href="/css/theme.css">
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/nv.d3.css">
+		<link rel="stylesheet" type="text/css" href="/css/styles.css">	  
+	  
+		<script type="text/javascript" src="/js/bootstrap.js"> </script>
+		<script type="text/javascript" src="/js/d3.v3.js"> </script>
+		<script type="text/javascript" src="/js/nv.d3.js"> </script>
+		<script type="text/javascript" src="/js/underscore.js"> </script>
+
+      <style>
+
+      .chart rect {
+        fill: steelblue;
+      }
+
+      .chart text {
+        fill: white;
+        font: 10px sans-serif;
+        text-anchor: end;
+      }
+
+      </style>
+
+  </head>
+    <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="localhost:5000">The Data Incubator</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li class="active"><a href="/background">Background</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gx Drug Models <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/epcdose">Release vs. EPC</a></li>
+                    <li><a href="/freq">Frequency Analysis</a></li>                    
+                  </ul>
+                </li>
+                <li><a href="/presentation">Presentation</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+
+      <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+          <!-- <h2>Why Generic Drugs?</h2> -->
+          <p class="text-center"><b># of FDA Approved Drugs From 2000 - 2015</b></p>
+          <div id="chart">
+            <center>
+            <svg style="height:400px"></svg>
+            <center>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        <!-- <h5>Generic name drugs play a large role in the drug market. As of 2015, they make up 4/5ths of the drug market, cost 30-80% less than their brand name counterparts and are also more profitable to distribute. Predicting when the generic version of a drug will launch can give distributors multiple advantages including:</h5> -->
+        <ul>
+<!--           <li> First to negotiate with suppliers and customers</li>
+          <li> Better preparation for shipping </li> -->
+        </ul>
+
+      <script> 
+
+        nv.addGraph(function() {
+            var chart = nv.models.multiBarChart()
+              .transitionDuration(350)
+              .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
+              .rotateLabels(0)      //Angle to rotate x-axis labels.
+              .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+              .groupSpacing(0.1)    //Distance between each group of bars.
+            ;
+
+            chart.xAxis
+                .tickFormat(d3.format('d'))
+                .axisLabel('Year');
+
+            chart.yAxis
+                .tickFormat(d3.format(',.1f'))
+                .axisLabel('Number of Releases');
+
+            d3.select('#chart svg')
+                .datum(getData())
+                .call(chart);
+
+            nv.utils.windowResize(chart.update);
+
+            return chart;
+        });
+
+        function getData() {
+          var input = '{{ data }}'
+          input = input.replace(/&#34;/g,'"')
+          data_obj = JSON.parse(input)
+
+          return data_obj
+        }
+
+    </script>
+
+    <style>
+    #chart svg { width: 80%; height: 80%;}
+    </style>
+
+	<script type="text/javascript" src="/js/jquery.min.js"> </script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"> </script>
+	
+    </body>
+
+    
+
+</html>
+
