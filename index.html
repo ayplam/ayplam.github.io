@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Generic Drug Launch Predictions</title>
+
+    <!-- Little icon at top -->
+    <link rel="shortcut icon" href="{{url_for('static', filename='Banzaitokyo-Medico-Caduceus.ico') }}">
+        
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type=text/css href="{{url_for('static', filename='theme.css') }}">
+    <link rel="stylesheet" type=text/css href="{{url_for('static', filename='bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" type=text/css href="{{url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" type=text/css href="{{url_for('static', filename='nv.d3.css') }}">
+    <link rel="stylesheet" type=text/css href="{{url_for('static', filename='styles.css') }}">
+
+  </head>
+
+  <body role = "document">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="localhost:5000">The Data Incubator</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/background">Background</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gx Drug Models <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/epcdose">Release vs. EPC</a></li>
+                    <li><a href="/freq">Frequency Analysis</a></li>                    
+                  </ul>
+                </li>
+                <li><a href="/presentation">Presentation</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+
+    <div class="container theme-showcase" role="main">
+
+      <div class="jumbotron">
+        <h1><center>Generic Drug Launch Prediction</center></h1>
+        <p class="lead">
+          <br>
+          Generic drugs make up approximately 80% of the entire drug market. That they are more profitable than their brand name counterparts make them attractive targets to determine whether predictions can be made about their launches. 
+          <br><br>
+          Different aspects of generic drug releases have been modeled using the <a href="fda.gov/Drugs/InformationOnDrugs/ucm142438.htm">FDA database</a>.
+        </p>
+      </div>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script type="text/javascript" src="{{url_for('static', filename='jquery.min.js') }}"> </script>
+    <script type="text/javascript" src="{{url_for('static', filename='bootstrap.min.js') }}"> </script>
+
+    <!--<link rel="js" type=js href="{{url_for('static', filename='bootstrap.min.js') }}">-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+      <!--<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>-->
+    
+    
+  </body>
+</html>
