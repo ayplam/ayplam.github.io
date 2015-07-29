@@ -15,6 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/nv.d3.css">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">	  
 	  
+		<script type="text/javascript" src="/js/jquery.min.js"> </script>
 		<script type="text/javascript" src="/js/bootstrap.js"> </script>
 		<script type="text/javascript" src="/js/d3.v3.js"> </script>
 		<script type="text/javascript" src="/js/nv.d3.js"> </script>
@@ -87,32 +88,33 @@
         </ul>
 
       <script> 
+		d3.json('drugcounthistory_bar.json',function(data) {
+			nv.addGraph(function() {
+				var chart = nv.models.multiBarChart()
+				  .transitionDuration(350)
+				  .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
+				  .rotateLabels(0)      //Angle to rotate x-axis labels.
+				  .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+				  .groupSpacing(0.1)    //Distance between each group of bars.
+				;
 
-        nv.addGraph(function() {
-            var chart = nv.models.multiBarChart()
-              .transitionDuration(350)
-              .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
-              .rotateLabels(0)      //Angle to rotate x-axis labels.
-              .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
-              .groupSpacing(0.1)    //Distance between each group of bars.
-            ;
+				chart.xAxis
+					.tickFormat(d3.format('d'))
+					.axisLabel('Year');
 
-            chart.xAxis
-                .tickFormat(d3.format('d'))
-                .axisLabel('Year');
+				chart.yAxis
+					.tickFormat(d3.format(',.1f'))
+					.axisLabel('Number of Releases');
 
-            chart.yAxis
-                .tickFormat(d3.format(',.1f'))
-                .axisLabel('Number of Releases');
+				d3.select('#chart svg')
+					.datum(data)
+					.call(chart);
 
-            d3.select('#chart svg')
-                .datum(getData())
-                .call(chart);
+				nv.utils.windowResize(chart.update);
 
-            nv.utils.windowResize(chart.update);
-
-            return chart;
-        });
+				return chart;
+			});
+		});
 
         function getData() {
           var input = '{{ data }}'
@@ -128,7 +130,6 @@
     #chart svg { width: 80%; height: 80%;}
     </style>
 
-	<script type="text/javascript" src="/js/jquery.min.js"> </script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"> </script>
 	
     </body>
