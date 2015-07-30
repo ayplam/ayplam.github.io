@@ -1,0 +1,75 @@
+---
+layout: default
+title: Brand-to-Generic Conversion
+---
+
+	<section class="content">
+
+    <div class="container theme-showcase" role="main">
+
+      <h2><center><b>Predicting Brand-to-Generic Conversions</center></h2>
+      <!-- <p>Pharmaceutical Model for Prediction</p> -->
+
+      <div id="chart">
+        <center>
+        <svg style="height:450px">
+        </svg>
+      </center>
+      </div>
+
+
+      <script>
+	  
+		d3.json('bx2gxmodel.json',function(data) {
+
+          nv.addGraph(function() {
+            var chart = nv.models.scatterChart()
+                          .showDistX(true)    //showDist, when true, will display those little distribution lines on the axis.
+                          .showDistY(true)
+                          .transitionDuration(350)
+                          .forceY([-0.5,19])
+                          .forceX([-0.5,19])
+                          .showLegend(false)
+                          .color(d3.scale.category10().range());
+
+            //Configure how the tooltip looks.
+            chart.tooltipContent(function(key) {
+                var splitkey = key.split('; ')
+                return '<h4>' + splitkey[0] + '</h4>' + '<h4>' + splitkey[1] + '</h4>';
+            });
+
+            //Axis settings
+            chart.xAxis
+              .tickFormat(d3.format('1.f'))
+              .axisLabel('True: Years for Conversion');
+            chart.yAxis
+              .axisLabel('Predicted: Years for Conversion');
+            
+            console.log(d3.scale.category10().range())
+
+            d3.select('#chart svg')
+                .datum(data)
+                .call(chart);
+				
+			console.log(data)
+
+          
+            nv.utils.windowResize(chart.update);
+
+            return chart;
+
+          });
+
+        });
+
+    </script>
+
+    <style>
+      #chart svg { width: 80%; height: 40%;}
+    </style>   
+
+
+    </div><!-- /.container -->
+
+    
+    </section>

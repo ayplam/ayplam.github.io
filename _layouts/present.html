@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+		<title> {% if page.title %} {{ page.title }} | {% endif %} Adrian Lam, Data Scientist </title>
+
+		{% include present_head.html %}
+
+	</head>
+
+	<body>
+
+	<style>
+		section {
+		  background: #fff;
+		  color: #000;
+		  padding: 2em;
+		  font-family: "PT Serif", Baskerville, Georgia;
+		}
+		#follow {
+		  background: none;
+		}
+		.grey {
+		  color: #777;
+		}
+		a:link,
+		a:visited {
+		  color: orange;
+		  text-decoration: none;
+		}
+		a:hover {
+		  text-decoration: underline;
+		}
+	</style>		
+
+		{{ content }}
+
+	</body>
+
+</html>

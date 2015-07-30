@@ -1,78 +1,216 @@
+<html lang="en"><head>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <title>Generic Drug Launch Predictions</title>
+    <title>Adrian Lam | Portfolio</title>
 
-    <!-- Little icon at top -->
-    <link rel="shortcut icon" href="/static/Banzaitokyo-Medico-Caduceus.ico">
-        
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="/css/theme.css">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/nv.d3.css">
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-  </head>
+    <!-- Custom CSS -->
+    <link href="css/stylish-portfolio.css" rel="stylesheet">
 
-  <body role = "document">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="localhost:5000">The Data Incubator</a>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top" onclick="$(&quot;#menu-close&quot;).click();">Portfolio</a>
+            </li>
+            <li>
+                <a href="#top" onclick="$(&quot;#menu-close&quot;).click();">Home</a>
+            </li>
+            <li>
+                <a href="#about" onclick="$(&quot;#menu-close&quot;).click();">About</a>
+            </li>
+            <li>
+                <a href="#projects" onclick="$(&quot;#menu-close&quot;).click();">Projects</a>
+            </li>
+            <li>
+                <a href="/Resume" onclick="$(&quot;#menu-close&quot;).click();">Resume</a>
+            </li>            
+            <li>
+                <a href="#contact" onclick="$(&quot;#menu-close&quot;).click();">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header id="top" class="header">
+        <div class="text-vertical-center">
+            <h1>Adrian Lam</h1>
+            <h3>
+                <span class="glyphicon glyphicon-ok-sign"></span> Data Scientist <br>
+            	<span class="glyphicon glyphicon-ok-sign"></span> MR Pulse Programmer <br>
+            	<span class="glyphicon glyphicon-ok-sign"></span> Image Processor<br>
+            </h3>
+            <br>
+            <a href="#about" class="btn btn-dark btn-lg">Find Out More</a>
+        </div>
+    </header>
+
+    <!-- About -->
+    <section id="about" class="about">
+        <center>
+            <h2>About Me</h2>
+        </center>
+        <div class="container-fluid">
+            <style>
+                img {
+                    width:40%; /*960/1640 = .58536585*/ 
+                    padding: 20px 50px 20px 50px;
+                    float:left;                    
+                }
+            </style>
+            <div class="span4">
+                <img src="/img/star.jpg" alt="eight-pointed-star">
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/background">Background</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gx Drug Models <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="/epcdose">Release vs. EPC</a></li>
-                    <li><a href="/freq">Frequency Analysis</a></li>                    
-                  </ul>
-                </li>
-                <li><a href="/presentation">Presentation</a></li>
-                <li><a href="/contact">Contact</a></li>
-              </ul>
-            </div><!--/.nav-collapse -->
-          </div>
-        </nav>
+            <div class="span8">
+                <p class="lead"> 
+                    <br>
+                    Data scientist passionate toward developing new tools for the healthcare        <br>
+                    industry. MR pulse programmer with a specialization toward cardiac imaging.     <br>
+                    Applied knowledge of image processing including segmentation, co-registration   <br>
+                    and 3D modeling
+                    <br><br>
+                    I am currently a PhD candidate at Georgia Institute of Technology and will be   <br>
+                    finishing up this Fall 2015. My research involves programming MRIs and          <br>
+                    developing algorithms to extract impactful information to guide interventional  <br>
+                    cardiology procedures
+                    <br><br>
+                    When I'm away from my desk, I enjoy playing tennis, learning the art of poi and <br> 
+                    exploring long-exposure photography. 
+                </p>                
+            </div>
+        </div>
+        <center>
+            <a href="#projects" class="btn btn-dark btn-lg">Next</a>
+        </center>
 
-    <div class="container theme-showcase" role="main">
+    </section>
 
-      <div class="jumbotron">
-        <h1><center>Generic Drug Launch Prediction</center></h1>
-        <p class="lead">
-          <br>
-          Generic drugs make up approximately 80% of the entire drug market. That they are more profitable than their brand name counterparts make them attractive targets to determine whether predictions can be made about their launches. 
-          <br><br>
-          Different aspects of generic drug releases have been modeled using the <a href="fda.gov/Drugs/InformationOnDrugs/ucm142438.htm">FDA database</a>.
-        </p>
-      </div>
+    <section id="projects" class="Projects bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h2>Projects</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="service-item">
+                                <h4>
+                                    <strong>Generic Launch Prediction</strong>
+                                </h4>
+                                <p>Predictive modeling of aspects <br>regarding generic drug release</p>
+                                <a href="/background" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="service-item">
+                                <h4>
+                                    <strong>Yelp Review Modeling</strong>
+                                </h4>
+                                <p>A machine learning and NLP approach <br>to predict restaurant scores.</p>
+                                <a href="#" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="service-item">
+                                <h4>
+                                    <strong>SimplifyMRI</strong>
+                                </h4>
+                                <p>An educational site to describe<br> the inner-workings of MRI.</p>
+                                <a href="#" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </div><!-- /.container -->
+    <section id="contact">
+        <div class="container">
+            <br><br><br><br><br>
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Contact</strong>
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-7 col-lg-offset-5 text-left">
+                    <ul class="list-unstyled">
+                        <li><span class="glyphicon glyphicon-phone"></span> &emsp; (650) 397 1526</li>
+                        <li><span class="glyphicon glyphicon-inbox"></span> &emsp; <a href="mailto:ayplam@gmail.com">ayplam@gmail.com</a>
+                        </li>
+                    </ul>
+                    <br><br><br><br><br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Scrolls to the selected menu item on the page
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    </script>
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
 
-    <script type="text/javascript" src="/js/jquery.min.js"> </script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"> </script>
-    
-  </body>
-</html>
+
+</body></html>

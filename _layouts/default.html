@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+	<title> {% if page.title %} {{ page.title }} | {% endif %} Adrian Lam, Data Scientist </title>
+	{% include head.html %}
+
+	</head>
+
+	<body>
+
+		{% include header.html %}
+
+		{{ content }}
+
+		{% include footer.html %}
+
+	</body>
+
+</html>
