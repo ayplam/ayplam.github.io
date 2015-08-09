@@ -1,40 +1,34 @@
-<header class="site-header">
-
-  <div class="wrapper">
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-	  <div class="container">
-		<div class="navbar-header">
-		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		  </button>
-		  <a class="navbar-brand" href="/">The Data Incubator</a>
-		</div>
-		<div id="navbar" class="navbar-collapse collapse">
-		  <ul class="nav navbar-nav">
-			<!-- <li class="active"><a href="/">Home</a></li> -->
-			<li><a href="/">Home</a></li>
-			<li><a href="/">About</a></li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Generig Drug Prediction<span class="caret"></span></a>	
-			  <ul class="dropdown-menu">
-			  	<li><a href="/background">Background</a></li>
-			  	<li role="separator" class="divider"></li>
-				<li><a href="/epcdose">Brand to Generic Conversion</a></li>
-				<li><a href="/freq">Frequency Analysis</a></li>
-				<li role="separator" class="divider"></li>
-				<!-- <li><a href="/presentation">Presentation</a></li> -->
-			  </ul>
-			</li>
-			
-			<li><a href="/contact">Contact</a></li>
-		  </ul>
-		</div><!--/.nav-collapse -->
-	  </div>
-	</nav>
-
-</header>
+<!-- Navigation -->
+<a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+<nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
+        <li class="sidebar-brand">
+            <a href="#top" onclick="$(&quot;#menu-close&quot;).click();">Portfolio</a>
+        </li>
+        <li>
+            <a href="#top" onclick="$(&quot;#menu-close&quot;).click();">Home</a>
+        </li>
+        <li>
+            <a href="#about" onclick="$(&quot;#menu-close&quot;).click();">About</a>
+        </li>
+        <li>
+            <a href="#projects" onclick="$(&quot;#menu-close&quot;).click();">Projects</a>
+        </li>
+        &emsp;&emsp;&emsp;
+        <i class="fa fa-inverse fa-hospital-o"></i> &thinsp; 
+        <a href="/gxbackground" onclick="$(&quot;#menu-close&quot;).click();">Generic Drug Modeling</a> <br>
+        &emsp;&emsp;&emsp;
+        <i class="fa fa-inverse fa-yelp"></i> &thinsp; 
+        <a href="#projects" onclick="$(&quot;#menu-close&quot;).click();">Yelp Reviews: ML/NLP</a> <br>
+        &emsp;&emsp;&emsp;
+        <i class="fa fa-inverse fa-heartbeat"></i> &thinsp; 
+        <a href="#projects" onclick="$(&quot;#menu-close&quot;).click();">Education: SimplifyMRI</a> 
+        <li>
+            <a href="/Resume" onclick="$(&quot;#menu-close&quot;).click();">Resume</a>
+        </li>            
+        <li>
+            <a href="#contact" onclick="$(&quot;#menu-close&quot;).click();">Contact</a>
+        </li>
+    </ul>
+</nav>

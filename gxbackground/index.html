@@ -1,0 +1,194 @@
+---
+layout: gxdefault
+---
+
+<section class="content">
+
+	<!-- Header -->
+	<header id="top" class="gxheader">   
+
+		<div class="text-vertical-center">
+			<h1>Generic Drug Launch Prediction</h1>
+			<p class="lead">
+				<br>
+				Currently, 8 out of every 10 prescriptions filled are for generic drugs. In addition,			<br>
+				generics are more profitable than their brand name counterparts. This makes them attractive		<br>
+				targets to determine whether predictions can be made about their release dates. 		<br><br>
+
+				
+				Different aspects of generic drug releases have been modeled using the 
+				<a href="fda.gov/Drugs/InformationOnDrugs/ucm142438.htm">FDA database</a>. 
+				<br><br>
+
+				<a href="#about" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span></a>			  
+
+			</p> 
+		</div>
+
+	</header>
+
+	<section id="about" class="about">
+		<div position:relative; width = "100%" height = "400px">
+
+		<h1> <center> Why Generic Drugs? </center></h1>
+
+		<p> <b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			# of FDA Approved Drugs From 2000 - 2015 </b></p>
+
+		<div height="400px", style="float:left">			
+			<div id="history">
+				<svg style="height:400px"></svg>
+			</div>
+		</div>
+		<div style="padding-left:750px" class="container-fluid">
+			<div class="span4">
+				<p class="lead">
+				
+				Brand name drugs are more expensive than their generic alternatives as pharmaceutical
+				companies charge more to recoup the cost of drug development. As a result, generics tend to have
+				a higher margin due to their decreased costs. <br><br>
+				As a retail pharmacy or pharmaceutical distributor,
+				knowing when a generic drug will launch can have multiple implications on revenue: <br><br>
+							
+				<span class="glyphicon glyphicon-check"></span> More accurate month-to-month sales forecasts <br>
+				<span class="glyphicon glyphicon-check"></span> First to negotiate on price with suppliers or customers <br>
+				<span class="glyphicon glyphicon-check"></span> Better preparation for drug distribution <br>
+
+				</p>
+
+			<center><a href="#fdadb" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Datasets</a></center>
+
+			</div>
+
+		</div>
+
+		<script> 
+
+			function formatDate(num) {
+				// Hack because something went wrong with the epoch date conversion
+				var date = new Date(num+36000000)
+				var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+				  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+				];				
+				var str = monthNames[(date.getMonth())] + " " + date.getFullYear()
+          		return (str) 
+			} 
+
+			d3.json('drugcounthistory_line.json',function(data) {
+				nv.addGraph(function() {
+					var chart = nv.models.lineChart()
+	                .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
+	                .margin({right: 20})  //Adjust chart margins to give the x-axis some breathing room.
+	                .transitionDuration(350)  //how fast do you want the lines to transition?
+	                .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
+	                .showYAxis(true)        //Show the y-axis
+	                .showXAxis(true)        //Show the x-axis					;
+
+	                var xticks = [1041422400000, 1136116800000, 1230811200000, 1325419200000, 1420113600000]
+
+					chart.xAxis
+					.tickFormat(function(d) { 
+						return formatDate(d)
+          			})
+          			.tickValues(xticks)
+					.axisLabel('Year');
+
+					chart.yAxis
+					.tickFormat(d3.format(',.1f'))
+					.axisLabel('Number of Releases');
+
+					d3.select('#history svg')
+					.datum(data)
+					.call(chart);
+
+					nv.utils.windowResize(chart.update);
+
+				  return chart;
+				});
+			});
+
+		</script>
+
+		<style>
+		#history svg { width: 240%; height: 100%;}
+		</style>
+
+	</section>
+
+
+	<section id="fdadb" class="fdadb">	
+
+	  <div id="Databases" position="fixed" class="container">
+	    <div class="row">
+	    	<div class="col-xs-6" style="font-size:50px;"> <center><strong> Databases </strong> </center>
+	    	</div>    
+	    </div>
+	  </div>
+
+	  <div class="row-fluid">
+      	<!-- <div class="col-md-1"></div> -->
+      	<div class="col-md-2"></div>
+      		<p class="text=left">
+        	<a href="fda.gov/Drugs/InformationOnDrugs/ucm142438.htm">FDA Drug Directory</a>
+        	</p>
+        </div>
+	
+		<div class="FDA-sample" data-example-id="hoverable-table">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<table class="table table-hover table-condensed" style="font-size:14px;font-family:Courier New">
+				  <thead>
+				    <tr></tr>
+				    <tr>
+				      <th>NDC</th>
+				      <th>Brand/Bx Name </th>
+				      <th>Generic/Gx Name  </th>
+				      <th>Dosage Form</th>
+				      <th>Route Name</th>
+				      <th>FDA Market Date</th>
+				      <th>Appl #</th>
+				      <th>Supplier</th>
+				      <th>Est Pharm Class</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td>54868-5831</td>
+				      <td>Precose</td>
+				      <td>Acarbose</td>
+				      <td>Tablet</td>
+				      <td>Oral</td>
+				      <td>2007-11-19</td>
+				      <td>NDA020482</td>
+				      <td>Physicians Total</td>
+				      <td>Alpha Glucosidase Inhibitor</td>
+				    </tr>
+				    <tr>
+				      <td>16252-524</td>
+				      <td>Acarbose</td>
+				      <td>Acarbose</td>
+				      <td>Tablet</td>
+				      <td>Oral</td>
+				      <td>2008-05-07</td>
+				      <td>ANDA077532</td>
+				      <td>Actavis Pharma</td>
+				      <td>Glucosidase Inhibitor</td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row" style="font-size:25px;">
+			<br><br><br><br><br><br><br>
+		<li> <a href="http://www.accessdata.fda.gov/scripts/cder/ob/eclink.cfm">Orange Book of Therapeutic Equivalences</a> </li>
+		</div>
+
+		<img src="../img/LKLJUia.png" alt="Orange Book">
+
+	</section>
+
+
+
+
+</section>

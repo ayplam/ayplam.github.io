@@ -63,7 +63,7 @@
         "x": 2014
       }
     ],
-    "key": "Number of Unique ANDAs"
+    "key": "Unique ANDAs"
   },
   {
     "color": "#ff7f0e",
@@ -129,6 +129,6 @@
         "x": 2014
       }
     ],
-    "key": "Number of Unique NDAs"
+    "key": "Unique NDAs"
   }
 ]
