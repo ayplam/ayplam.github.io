@@ -1,5 +1,4 @@
 
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -12,16 +11,18 @@
 	<link rel="shortcut icon" href="/static/Banzaitokyo-Medico-Caduceus.ico">
 		
 	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet" type="text/css" href="/css/theme.css">
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/nv.d3.css">
-	<link rel="stylesheet" type="text/css" href="/css/styles.css">	  
+	<link rel="stylesheet" type="text/css" href="../css/theme.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/nv.d3.css">
+	<link rel="stylesheet" type="text/css" href="../css/styles.css">	  
   
-	<script type="text/javascript" src="/js/bootstrap.js"> </script>
-	<script type="text/javascript" src="/js/d3.v3.js"> </script>
-	<script type="text/javascript" src="/js/nv.d3.js"> </script>
-	<script type="text/javascript" src="/js/underscore.js"> </script>
+  <script type="text/javascript" src="../js/jquery.min.js"> </script>
+  <script type="text/javascript" src="../js/bootstrap.min.js"> </script>
+	<script type="text/javascript" src="../js/bootstrap.js"> </script>
+	<script type="text/javascript" src="../js/d3.v3.js"> </script>
+	<script type="text/javascript" src="../js/nv.d3.js"> </script>
+	<script type="text/javascript" src="../js/underscore.js"> </script>
 
   </head>
 
@@ -81,8 +82,27 @@
       </div>
 
     </div><!-- /.container -->
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+  <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+  <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+</ul>
 
-
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+    <h3>HOME</h3>
+    <p>Some content.</p>
+  </div>
+  <div id="menu1" class="tab-pane fade">
+    <h3>Menu 1</h3>
+    <p>Some content in menu 1.</p>
+  </div>
+  <div id="menu2" class="tab-pane fade">
+    <h3>Menu 2</h3>
+    <p>Some content in menu 2.</p>
+  </div>
+</div>
+<!-- 
     <script>
 
     /*These lines are all chart setup.  Pick and choose which chart features you want to utilize. */
@@ -171,6 +191,55 @@ nv.addGraph(function() {
   }
 
 </script>
+ -->
+
+
+<script>
+    nv.addGraph(function() {
+  var chart = nv.models.scatterPlusLineChart()
+                .showDistX(true)
+                .showDistY(true)
+                //.height(500)
+                .color(d3.scale.category10().range());
+  chart.xAxis.tickFormat(d3.format('.02f'))
+  chart.yAxis.tickFormat(d3.format('.02f'))
+
+  var data = randomData(4,40)
+
+  console.log(data)
+
+  d3.select('#chart svg')
+      .datum(data)
+    .transition().duration(500)
+      .call(chart);
+  nv.utils.windowResize(chart.update);
+  return chart;
+});
+function randomData(groups, points) { //# groups,# points per group
+  var data = [],
+      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+      random = d3.random.normal();
+  for (i = 0; i < groups; i++) {
+    data.push({
+      key: 'Group ' + i,
+      values: [],
+      slope: Math.random() - .01,
+      intercept: Math.random() - .5
+    });
+    for (j = 0; j < points; j++) {
+      data[i].values.push({
+        x: random(), 
+        y: random(), 
+        size: Math.random(), 
+        shape: shapes[j % 6]
+      });
+    }
+  }
+  return data;
+}
+
+</script>
+
 
 
     <style>
@@ -186,8 +255,6 @@ nv.addGraph(function() {
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-	<script type="text/javascript" src="/js/jquery.min.js"> </script>
-	<script type="text/javascript" src="/js/bootstrap.min.js"> </script>
 
     
     
