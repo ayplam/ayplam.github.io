@@ -6,7 +6,6 @@ layout: gxdefault
 
 	<!-- Header -->
 	<header id="top" class="gxheader">   
-
 		<div class="text-vertical-center">
 			<h1>Generic Drug Launch Prediction</h1>
 			<p class="lead">
@@ -24,11 +23,9 @@ layout: gxdefault
 
 			</p> 
 		</div>
-
 	</header>
 
 	<section id="about" class="about">
-
 		<div id="about" position="fixed" class="container">
 		   <div class="row">
 		   		<div class="col-md-1"> </div>
@@ -37,8 +34,6 @@ layout: gxdefault
 		      </div>
 		   </div>
 		</div>
-
-
 
 		<div position:relative; width = "100%" height = "400px">
 
@@ -117,13 +112,11 @@ layout: gxdefault
 				  return chart;
 				});
 			});
-
 		</script>
 
 		<style>
 		#history svg { width: 240%; height: 100%;}
 		</style>
-
 	</section>
 
 
@@ -140,7 +133,7 @@ layout: gxdefault
 		</div>
 
 		<div class="row">
-			<div class="col-md-10 col-md-offset-1">
+			<div class="col-md-9 col-md-offset-1">
 				<h4>
 					1. &emsp; The FDA provides an open <a href="fda.gov/Drugs/InformationOnDrugs/ucm142438.htm">drug directory</a> </center> which contains all current drugs that are on the market. 
 				</h4>
@@ -149,7 +142,7 @@ layout: gxdefault
 
 		<div class="row">
 			<div class="FDA-sample" data-example-id="hoverable-table">
-				<div class="col-md-10 col-md-offset-1">
+				<div class="col-md-9 col-md-offset-1">
 					<table class="table table-hover table-condensed" style="font-size:14px;font-family:Courier New">
 					  <thead>
 					    <tr></tr>
@@ -195,22 +188,20 @@ layout: gxdefault
 		</div>
 
 		<div class="row">
-			<div class="col-md-10 col-md-offset-1">
+			<div class="col-md-9 col-md-offset-1">
 				<h4>
-				2. &emsp; Each year, the FDA releases an <a href="http://www.accessdata.fda.gov/scripts/cder/ob/eclink.cfm">Orange Book of Therapeutic Equivalences</a>, identifies drug products and their degrees of therapeutic equivalence. Products that meet necessary bioequivalent requirements as determined by the FDA are given the code "AB".</h3>
+				2. &emsp; Each year, the FDA releases an <a href="http://www.accessdata.fda.gov/scripts/cder/ob/eclink.cfm">Orange Book of Therapeutic Equivalences</a> that identifies drug products and their degrees of therapeutic equivalence. Products that meet necessary bioequivalent requirements as determined by the FDA are given the code "AB".</h3>
 			</div>
 		</div>
 
 		<div class="row">
 			
 			<div class="col-md-1"></div>
-			<div class="col-md-10">		
+			<div class="col-md-9">		
 				<center><img src="../img/LKLJUia.png" alt="Orange Book"></center>
 			</div>
-			
-		</div>
 
-		
+		</div>
 
 	</section>
 
@@ -230,6 +221,7 @@ layout: gxdefault
 
 	      <div id="epcdose" style="float:left">     
 	        <svg style="width:600px"></svg>
+	        <br><br>
 	      </div>
 
 
@@ -275,7 +267,7 @@ layout: gxdefault
 
 				<h4>
 
-					&emsp; Upon first glance, the model unpredicts drugs that took fewer than 10 years for conversion and overpredicts drugs that took more than 10 years for conversion. 
+					&emsp; The model appears to underpredict drugs that took fewer than 10 years for conversion and overpredict drugs that took more than 10 years for conversion. 
 
 					<br><br>
 
@@ -289,7 +281,7 @@ layout: gxdefault
 
     				<br><br>
 
-    				&emsp; Naturally, it is expected that a model that simply uses 
+    				&emsp; The RMSE of 2 years suggests that while there is some relationship between the date a brand name drug is released, its pharmaceutical class, and dosage form, it is not sufficient to explain the variance seen in generic conversion time.
 
 
 				</h4>
@@ -306,95 +298,243 @@ layout: gxdefault
 
 			<script>
 			
-			$(document).ready(function(){
-			    $("#button_model").click(function(){
-			        $("#d1").fadeIn("slow");
-			        $("#button_model").addClass("btn-light");
-			        $("#d2").hide();
-			        $("#d3").hide();
-			        $("#button_results").removeClass("btn-light");
-			        $("#button_discussion").removeClass("btn-light");
+				$(document).ready(function(){
+				    $("#button_model").click(function(){
+				        $("#d1").fadeIn("slow");
+				        $("#button_model").addClass("btn-light");
+				        $("#d2").hide();
+				        $("#d3").hide();
+				        $("#button_results").removeClass("btn-light");
+				        $("#button_discussion").removeClass("btn-light");
 
-			    });
-				$("#button_results").click(function(){
-			        $("#d1").hide();
-			        $("#d2").fadeIn("slow")
-			        $("#button_results").addClass("btn-light");
-			        $("#d3").hide();
-			        $("#button_model").removeClass("btn-light");
-			        $("#button_discussion").removeClass("btn-light");
-			    });
-				$("#button_discussion").click(function(){
-			        $("#d1").hide();
-			        $("#d2").hide();
-			        $("#d3").fadeIn("slow")
-			        $("#button_discussion").addClass("btn-light");
-			        $("#button_results").removeClass("btn-light");
-			        $("#button_model").removeClass("btn-light");
-			    });					    			    
-			});
+				    });
+					$("#button_results").click(function(){
+				        $("#d1").hide();
+				        $("#d2").fadeIn("slow")
+				        $("#button_results").addClass("btn-light");
+				        $("#d3").hide();
+				        $("#button_model").removeClass("btn-light");
+				        $("#button_discussion").removeClass("btn-light");
+				    });
+					$("#button_discussion").click(function(){
+				        $("#d1").hide();
+				        $("#d2").hide();
+				        $("#d3").fadeIn("slow")
+				        $("#button_discussion").addClass("btn-light");
+				        $("#button_results").removeClass("btn-light");
+				        $("#button_model").removeClass("btn-light");
+				    });					    			    
+				});
 
 
+				d3.json('../data/epcdosemodel.json',function(data) {
+
+		          nv.addGraph(function() {
+		            var chart = nv.models.scatterPlusLineChart()
+		                          .showDistX(true)    //showDist, when true, will display those little distribution lines on the axis.
+		                          .showDistY(true)
+		                          .margin({left: 80})  //Adjust chart margins to give the x-axis some breathing room.
+		                          .transitionDuration(350)
+		                          .forceY([-0.5,19])
+		                          .forceX([-0.5,19])
+		                          .showLegend(false)
+		                          .color(d3.scale.category10().range());
+
+		            //Configure how the tooltip looks.
+		            chart.tooltipContent(function(key) {
+		                var splitkey = key.split('; ')
+		                return '<h4>' + splitkey[0] + '</h4>' + '<h4>' + splitkey[1] + '</h4>';
+		            });
+
+		            //Axis settings
+		            chart.xAxis
+		              .tickFormat(d3.format('1.f'))
+		              .axisLabel('True: Years for Conversion');
+		            chart.yAxis
+		              .axisLabel('Predicted: Years for Conversion');
+		            
+		            console.log(d3.scale.category10().range())
+
+		            d3.select('#epcdose svg')
+		                .datum(data)
+		                .call(chart);
+						
+					console.log(data)
+
+		          
+		            nv.utils.windowResize(chart.update);
+
+		            return chart;
+
+		          });
+
+		        });
 
 
 			</script>
 
-
 		</div>	    
 
-	      <script>
-		  
-			d3.json('../data/epcdosemodel.json',function(data) {
-
-	          nv.addGraph(function() {
-	            var chart = nv.models.scatterPlusLineChart()
-	                          .showDistX(true)    //showDist, when true, will display those little distribution lines on the axis.
-	                          .showDistY(true)
-	                          .margin({left: 80})  //Adjust chart margins to give the x-axis some breathing room.
-	                          .transitionDuration(350)
-	                          .forceY([-0.5,19])
-	                          .forceX([-0.5,19])
-	                          .showLegend(false)
-	                          .color(d3.scale.category10().range());
-
-	            //Configure how the tooltip looks.
-	            chart.tooltipContent(function(key) {
-	                var splitkey = key.split('; ')
-	                return '<h4>' + splitkey[0] + '</h4>' + '<h4>' + splitkey[1] + '</h4>';
-	            });
-
-	            //Axis settings
-	            chart.xAxis
-	              .tickFormat(d3.format('1.f'))
-	              .axisLabel('True: Years for Conversion');
-	            chart.yAxis
-	              .axisLabel('Predicted: Years for Conversion');
-	            
-	            console.log(d3.scale.category10().range())
-
-	            d3.select('#epcdose svg')
-	                .datum(data)
-	                .call(chart);
-					
-				console.log(data)
-
-	          
-	            nv.utils.windowResize(chart.update);
-
-	            return chart;
-
-	          });
-
-	        });
-
-	    </script>
-
 	    <style>
-	      #epcdose svg { width: 150%; height: 80%;}
+		    #epcdose svg { width: 150%; height: 80%;}
 	    </style>   
 
 
 	    </div><!-- /.container -->
+	</section>
+
+	<section id="freq" class="freq">
+
+		<div id="freq" position="fixed" class="container">
+		   <div class="row">
+				<div class="col-md-1"> </div>
+		      	<div class="col-md-9" style="font-size:45px;">
+		         	<strong> Generics Release Frequency </strong> 
+		      </div>
+		   </div>
+		</div>		
+
+	    <div class="container theme-showcase" role="main" style="float:left">
+
+	      <div id="releases" style="float:left">     
+	        <svg style="width:600px"></svg>
+	        <br><br>
+	      </div>
+
+
+		<div style="padding-left:680px" class="container-fluid">
+
+			<center><a id="button_time" class="btn btn-lg btn-light"> 
+				&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Time-Series Study
+				</a>
+				<a id="button_fft" class="btn btn-lg"> 
+				&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Fourier Analysis
+				</a>
+							
+			</center>
+
+			<div class="span6" id="d4">
+
+				<h3> <strong> <center>Modeling Supplier Releases </center> </strong> </h3>
+
+				<h4>
+				&emsp; We can analyze the magnitude and frequency of releases of drugs over time by using a fourier transform.
+				<br><br>
+										
+				&emsp; To remove the "noise" of some smaller suppliers, only suppliers that had at least 50 unique ANDAs were included, and only data from 2000 to June 2015 was included in the frequency analysis. <br><br>
+
+				</h4>
+
+			</div>
+
+			<div class="span6" id="d5" style="display:none">
+
+				<h3> <strong><center>Results</center></strong> </h3>
+
+				<h4>
+
+					&emsp; The fourier transform reveals a dominant frequency at 52 days/cycle with a smaller harmonic frequency at 104 days/cycle. This suggests that approximately every 52 days, we can expect to see a "peak" in the time domain.
+
+					<br><br>
+
+    				If we define a "large release" as > 35 ANDAs released on a single day (top 97.5% of all releases/day):
+    				<li> There is a 23% chance of another large release 59-66 days after current large release </li>
+    				<li> This probability rises to 40% chance if looking 2-3 months after a current large release </li>
+
+    				<br>
+
+    				This frequency analysis suggests that monthly sales forecasts can be improved simply by looking at the history of previous releases.
+
+
+
+				</h4>
+			
+			</div>
+		</div>
+
+		<script>
+
+			makeThrehsoldChart('../data/releases09toCurr.json',1)
+		
+			$(document).ready(function(){
+			    $("#button_time").click(function(){
+			        $("#d4").fadeIn("slow");
+			        $("#button_time").addClass("btn-light");
+			        $("#d5").hide();
+			        $("#d6").hide();
+			        $("#button_fft").removeClass("btn-light");
+			        makeThrehsoldChart('../data/releases09toCurr.json',1)
+			    });
+				$("#button_fft").click(function(){
+			        $("#d4").hide();
+			        $("#d5").fadeIn("slow")
+			        $("#button_fft").addClass("btn-light");
+			        $("#d6").hide();
+			        $("#button_time").removeClass("btn-light");
+			        makeThrehsoldChart('../data/frequency.json',2)
+			    });			    			    
+			});
+
+
+			function makeThrehsoldChart(file,val) {
+				d3.json(file,function(data) {
+					nv.addGraph(function() {
+						var chart = nv.models.lineChart()
+						            .margin({left: 100, top: 100})  //Adjust chart margins to give the x-axis some breathing room.
+						            .transitionDuration(350)  //how fast do you want the lines to transition?
+						            .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
+						            .showYAxis(true)        //Show the y-axis
+						            .showXAxis(true)        //Show the x-axis
+						;
+
+						console.log(file)
+						console.log(val)
+
+						if (val == 1) {
+						    chart.xAxis //Chart x-axis settings
+						        .axisLabel('Time (Years)')
+						        .tickValues([2009, 2010, 2011, 2012, 2013, 2014, 2015])
+						        .tickFormat(d3.format('.f'));
+						    chart.yAxis //Chart y-axis settings
+						        .axisLabel('Number Of Releases')
+						        .tickFormat(d3.format('f'));
+						    chart.tooltipContent(function(key, x, y) {
+						        var datevar = dateFromDay(Math.round(x), parseInt((x - Math.round(x)) * 365))
+						        var datestr = datevar.toString();
+						        return '<h4> &emsp;' +  parseInt(y) + ' releases </h4><h4>  &emsp;on ' + datestr.substring(4, 15)  + '  &emsp; </h4>';
+						    });
+						} else {
+						    chart.xAxis //Chart x-axis settings
+						        .axisLabel('Frequency of Releases (Every N Days/Year)')
+						        .tickFormat(d3.format('f'));
+						    chart.yAxis //Chart y-axis settings
+						        .axisLabel('Magnitude')
+						        .tickFormat(d3.format('.02f'));
+						}
+
+					    d3.select('#releases svg') //Select the < svg > element you want to render the chart in .
+					        .datum(data) //Populate the < svg > element with chart data...
+					        .call(chart); //Finally, render the chart!						
+
+
+					  //Update the chart when window resizes.
+					  // nv.utils.windowResize(function() { chart.update() });
+					  return chart;
+					});
+				})
+			}		
+
+			function dateFromDay(year, day){
+		        var date = new Date(year, 0,1); // initialize a date in `year-01-01`
+		        return new Date(date.setDate(day+1)); // add the number of days
+		    }				
+
+		</script>
+
+
+		<style>
+		#releases svg { width: 240%; height: 75%;}
+		</style>			
 
 	</section>
 
