@@ -197,8 +197,8 @@ layout: gxdefault
 		<div class="row">
 			
 			<div class="col-md-1"></div>
-			<div class="col-md-9">		
-				<center><img src="../img/LKLJUia.png" alt="Orange Book"></center>
+			<div class="col-md-9">
+				<center><img src="../img/LKLJUia.png" alt="Orange Book"><br><br></center>
 			</div>
 
 		</div>
@@ -217,175 +217,172 @@ layout: gxdefault
 		</div>
 
 
-	    <div class="container theme-showcase" role="main" style="float:left">
+	    <div class="container theme-showcase" role="main">
 
-	      <div id="epcdose" style="float:left">     
-	        <svg style="width:600px"></svg>
-	        <br><br>
-	      </div>
-
-
-		<div style="padding-left:680px" class="container-fluid">
-
-
-			<center><a id="button_model" class="btn btn-lg btn-light"> 
-				&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Model
-				</a>
-				<a id="button_results" class="btn btn-lg"> 
-				&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Results
-				</a>
-				<a id="button_discussion" class="btn btn-lg"> 
-				&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Conclusions
-				</a>										
-			</center>
-
-			<div class="span6" id="d1">
-
-				<h3> <strong> <center>Model Details </center> </strong> </h3>
-
-				<h4>
-				&emsp; The following features were used to predict the time for generic conversion:
-										
+			<div id="epcdose" style="float:left">     
+				<svg style="width:600px"></svg>
 				<br><br>
-				<i class="fa fa-fw fa-check-circle-o"></i> &emsp; FDA Market Date <br>
-				<i class="fa fa-fw fa-check-circle-o"></i> &emsp; Established pharmaceutical class (EPC) <br>
-				<i class="fa fa-fw fa-check-circle-o"></i> &emsp; Dosage form<br>
-
-				<br>
-
-				&emsp; To account for changes in FDA guidelines over time and any potential seasonality effects, the month and year were extracted from the date and used as two separate features. Words from the EPC and dosage form were vectorized, with each word used as a feature for modeling. <br><br>
-
-				&emsp; All features were combined and fit to a Ridge regression using a leave-one-out cross-validation.
-
-				</h4>
-
 			</div>
 
-			<div class="span6" id="d2" style="display:none">
 
-				<h3> <strong><center>Results</center></strong> </h3>
+			<div style="padding-left:680px" class="container-fluid">
 
-				<h4>
 
-					&emsp; The model appears to underpredict drugs that took fewer than 10 years for conversion and overpredict drugs that took more than 10 years for conversion. 
+				<center><a id="button_model" class="btn btn-lg btn-light"> 
+					&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Model
+					</a>
+					<a id="button_results" class="btn btn-lg"> 
+					&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Results
+					</a>
+					<a id="button_discussion" class="btn btn-lg"> 
+					&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Conclusions
+					</a>										
+				</center>
 
+				<div class="span6" id="d1">
+
+					<h3> <strong> <center>Model Details </center> </strong> </h3>
+
+					<h4>
+					&emsp; The following features were used to predict the time for generic conversion:
+											
 					<br><br>
+					<i class="fa fa-fw fa-check-circle-o"></i> &emsp; FDA Market Date <br>
+					<i class="fa fa-fw fa-check-circle-o"></i> &emsp; Established pharmaceutical class (EPC) <br>
+					<i class="fa fa-fw fa-check-circle-o"></i> &emsp; Dosage form<br>
 
-					Statistics:
+					<br>
 
-					<br><br>
+					&emsp; To account for changes in FDA guidelines over time and any potential seasonality effects, the month and year were extracted from the date and used as two separate features. Words from the EPC and dosage form were vectorized, with each word used as a feature for modeling. <br><br>
 
-					<li> R<sup>2</sup>: 0.829 </li>
-    				<li> RMSE: 2.00 years </li>
-    				<li> Abs Mean Err: 1.56 years </li>
+					&emsp; All features were combined and fit to a Ridge regression using a leave-one-out cross-validation.
 
-    				<br><br>
+					</h4>
 
-    				&emsp; The RMSE of 2 years suggests that while there is some relationship between the date a brand name drug is released, its pharmaceutical class, and dosage form, it is not sufficient to explain the variance seen in generic conversion time.
+				</div>
 
+				<div class="span6" id="d2" style="display:none">
 
-				</h4>
-			
-			</div>
+					<h3> <strong><center>Results</center></strong> </h3>
 
-			<div class="span5" id="d3" style="display:none">
+					<h4>
 
-				<h3> <strong><center>Final Thoughts</center></strong> </h3>
-			
-				<h4>
-					&emsp; This model provides a good starting point for predicintg brand-to-generic conversion times. Future work includes incorporating additional features from other sources, including patent exclusivity periods, drug mechanism of action, and estimated market size. <br><br>
-			</div>			
+						&emsp; The model appears to underpredict drugs that took fewer than 10 years for conversion and overpredict drugs that took more than 10 years for conversion. 
 
-			<script>
-			
-				$(document).ready(function(){
-				    $("#button_model").click(function(){
-				        $("#d1").fadeIn("slow");
-				        $("#button_model").addClass("btn-light");
-				        $("#d2").hide();
-				        $("#d3").hide();
-				        $("#button_results").removeClass("btn-light");
-				        $("#button_discussion").removeClass("btn-light");
+						<br><br>
 
-				    });
-					$("#button_results").click(function(){
-				        $("#d1").hide();
-				        $("#d2").fadeIn("slow")
-				        $("#button_results").addClass("btn-light");
-				        $("#d3").hide();
-				        $("#button_model").removeClass("btn-light");
-				        $("#button_discussion").removeClass("btn-light");
-				    });
-					$("#button_discussion").click(function(){
-				        $("#d1").hide();
-				        $("#d2").hide();
-				        $("#d3").fadeIn("slow")
-				        $("#button_discussion").addClass("btn-light");
-				        $("#button_results").removeClass("btn-light");
-				        $("#button_model").removeClass("btn-light");
-				    });					    			    
-				});
+						Statistics:
+
+						<br><br>
+
+						<li> R<sup>2</sup>: 0.829 </li>
+	    				<li> RMSE: 2.00 years </li>
+	    				<li> Abs Mean Err: 1.56 years </li>
+
+	    				<br><br>
+
+	    				&emsp; The RMSE of 2 years suggests that while there is some relationship between the date a brand name drug is released, its pharmaceutical class, and dosage form, it is not sufficient to explain the variance seen in generic conversion time.
 
 
-				d3.json('../data/epcdosemodel.json',function(data) {
+					</h4>
+				
+				</div>
 
-		          nv.addGraph(function() {
-		            var chart = nv.models.scatterPlusLineChart()
-		                          .showDistX(true)    //showDist, when true, will display those little distribution lines on the axis.
-		                          .showDistY(true)
-		                          .margin({left: 80})  //Adjust chart margins to give the x-axis some breathing room.
-		                          .transitionDuration(350)
-		                          .forceY([-0.5,19])
-		                          .forceX([-0.5,19])
-		                          .showLegend(false)
-		                          .color(d3.scale.category10().range());
+				<div class="span5" id="d3" style="display:none">
 
-		            //Configure how the tooltip looks.
-		            chart.tooltipContent(function(key) {
-		                var splitkey = key.split('; ')
-		                return '<h4>' + splitkey[0] + '</h4>' + '<h4>' + splitkey[1] + '</h4>';
-		            });
+					<h3> <strong><center>Final Thoughts</center></strong> </h3>
+				
+					<h4>
+						&emsp; This model provides a good starting point for predicintg brand-to-generic conversion times. Future work includes incorporating additional features from other sources, including patent exclusivity periods, drug mechanism of action, and estimated market size. <br><br>
+					</h4>
+				</div>			
+			</div>	    
+	    </div>
 
-		            //Axis settings
-		            chart.xAxis
-		              .tickFormat(d3.format('1.f'))
-		              .axisLabel('True: Years for Conversion');
-		            chart.yAxis
-		              .axisLabel('Predicted: Years for Conversion');
-		            
-		            console.log(d3.scale.category10().range())
-
-		            d3.select('#epcdose svg')
-		                .datum(data)
-		                .call(chart);
+		<script>
 						
-					console.log(data)
+			$(document).ready(function(){
+			    $("#button_model").click(function(){
+			        $("#d1").fadeIn("slow");
+			        $("#button_model").addClass("btn-light");
+			        $("#d2").hide();
+			        $("#d3").hide();
+			        $("#button_results").removeClass("btn-light");
+			        $("#button_discussion").removeClass("btn-light");
 
-		          
-		            nv.utils.windowResize(chart.update);
+			    });
+				$("#button_results").click(function(){
+			        $("#d1").hide();
+			        $("#d2").fadeIn("slow")
+			        $("#button_results").addClass("btn-light");
+			        $("#d3").hide();
+			        $("#button_model").removeClass("btn-light");
+			        $("#button_discussion").removeClass("btn-light");
+			    });
+				$("#button_discussion").click(function(){
+			        $("#d1").hide();
+			        $("#d2").hide();
+			        $("#d3").fadeIn("slow")
+			        $("#button_discussion").addClass("btn-light");
+			        $("#button_results").removeClass("btn-light");
+			        $("#button_model").removeClass("btn-light");
+			    });					    			    
+			});
 
-		            return chart;
 
-		          });
+			d3.json('../data/epcdosemodel.json',function(data) {
 
-		        });
+	          nv.addGraph(function() {
+	            var chart = nv.models.scatterPlusLineChart()
+	                          .showDistX(true)    //showDist, when true, will display those little distribution lines on the axis.
+	                          .showDistY(true)
+	                          .margin({left: 80})  //Adjust chart margins to give the x-axis some breathing room.
+	                          .transitionDuration(350)
+	                          .forceY([-0.5,19])
+	                          .forceX([-0.5,19])
+	                          .showLegend(false)
+	                          .color(d3.scale.category10().range());
 
+	            //Configure how the tooltip looks.
+	            chart.tooltipContent(function(key) {
+	                var splitkey = key.split('; ')
+	                return '<h4>' + splitkey[0] + '</h4>' + '<h4>' + splitkey[1] + '</h4>';
+	            });
 
-			</script>
+	            //Axis settings
+	            chart.xAxis
+	              .tickFormat(d3.format('1.f'))
+	              .axisLabel('True: Years for Conversion');
+	            chart.yAxis
+	              .axisLabel('Predicted: Years for Conversion');
+	            
+	            console.log(d3.scale.category10().range())
 
-		</div>	    
+	            d3.select('#epcdose svg')
+	                .datum(data)
+	                .call(chart);
+					
+				console.log(data)
+
+	          
+	            nv.utils.windowResize(chart.update);
+
+	            return chart;
+
+	          });
+
+	        });
+		</script>			
 
 	    <style>
 		    #epcdose svg { width: 150%; height: 80%;}
 	    </style>   
 
-
-	    </div><!-- /.container -->
 	</section>
 
 	<section id="freq" class="freq">
 
-		<div id="freq" position="fixed" class="container">
+		<div id="frequency" position="fixed" class="container">
 		   <div class="row">
 				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
@@ -394,61 +391,59 @@ layout: gxdefault
 		   </div>
 		</div>		
 
-	    <div class="container theme-showcase" role="main" style="float:left">
+	    <div class="container theme-showcase" role="main">
 
-	      <div id="releases" style="float:left">     
-	        <svg style="width:600px"></svg>
-	        <br><br>
-	      </div>
-
-
-		<div style="padding-left:680px" class="container-fluid">
-
-			<center><a id="button_time" class="btn btn-lg btn-light"> 
-				&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Time-Series Study
-				</a>
-				<a id="button_fft" class="btn btn-lg"> 
-				&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Fourier Analysis
-				</a>
-							
-			</center>
-
-			<div class="span6" id="d4">
-
-				<h3> <strong> <center>Modeling Supplier Releases </center> </strong> </h3>
-
-				<h4>
-				&emsp; We can analyze the magnitude and frequency of releases of drugs over time by using a fourier transform.
+			<div id="releases" style="float:left">     
+				<svg style="width:600px"></svg>
 				<br><br>
-										
-				&emsp; To remove the "noise" of some smaller suppliers, only suppliers that had at least 50 unique ANDAs were included, and only data from 2000 to June 2015 was included in the frequency analysis. <br><br>
-
-				</h4>
-
 			</div>
 
-			<div class="span6" id="d5" style="display:none">
 
-				<h3> <strong><center>Results</center></strong> </h3>
+			<div style="padding-left:680px" class="container-fluid">
 
-				<h4>
+				<center><a id="button_time" class="btn btn-lg btn-light"> 
+					&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Time-Series Study
+					</a>
+					<a id="button_fft" class="btn btn-lg"> 
+					&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Fourier Analysis
+					</a>								
+				</center>
 
-					&emsp; The fourier transform reveals a dominant frequency at 52 days/cycle with a smaller harmonic frequency at 104 days/cycle. This suggests that approximately every 52 days, we can expect to see a "peak" in the time domain.
+				<div class="span6" id="d4">
 
+					<h3> <strong> <center>Modeling Supplier Releases </center> </strong> </h3>
+
+					<h4>
+					&emsp; We can analyze the magnitude and frequency of releases of drugs over time by using a fourier transform.
 					<br><br>
+											
+					&emsp; To remove the "noise" of some smaller suppliers, only suppliers that had at least 50 unique ANDAs were included, and only data from 2000 to June 2015 was included in the frequency analysis. <br><br>
 
-    				If we define a "large release" as > 35 ANDAs released on a single day (top 97.5% of all releases/day):
-    				<li> There is a 23% chance of another large release 59-66 days after current large release </li>
-    				<li> This probability rises to 40% chance if looking 2-3 months after a current large release </li>
+					</h4>
 
-    				<br>
+				</div>
 
-    				This frequency analysis suggests that monthly sales forecasts can be improved simply by looking at the history of previous releases.
+				<div class="span6" id="d5" style="display:none">
 
+					<h3> <strong><center>Results</center></strong> </h3>
 
+					<h4>
 
-				</h4>
-			
+						&emsp; The fourier transform reveals a dominant frequency at 52 days/cycle with a smaller harmonic frequency at 104 days/cycle. This suggests that approximately every 52 days, we can expect to see a "peak" in the time domain.
+
+						<br><br>
+
+	    				If we define a "large release" as > 35 ANDAs released on a single day (top 97.5% of all releases/day):
+	    				<li> There is a 23% chance of another large release 59-66 days after current large release </li>
+	    				<li> This probability rises to 40% chance if looking 2-3 months after a current large release </li>
+
+	    				<br>
+
+	    				This frequency analysis suggests that monthly sales forecasts can be improved simply by looking at the history of previous releases.
+
+					</h4>
+				
+				</div>
 			</div>
 		</div>
 
@@ -527,14 +522,27 @@ layout: gxdefault
 			function dateFromDay(year, day){
 		        var date = new Date(year, 0,1); // initialize a date in `year-01-01`
 		        return new Date(date.setDate(day+1)); // add the number of days
-		    }				
-
+		    }		
 		</script>
 
 
 		<style>
-		#releases svg { width: 240%; height: 75%;}
+			#releases svg { width: 240%; height: 75%;}
 		</style>			
+
+	</section>
+
+	<section id="fin" class="fin">
+
+		<div id="frequency" position="fixed" class="container">
+		   <div class="row">
+				<div class="col-md-1"> </div>
+		      	<div class="col-md-9" style="font-size:45px;">
+		         	<strong> Project Conclusions </strong> 
+		      </div>
+		   </div>
+		</div>		
+
 
 	</section>
 
