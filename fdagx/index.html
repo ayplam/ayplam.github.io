@@ -566,14 +566,397 @@ layout: gxdefault
 			#releases svg { width: 260%; height: 75%;}
 		</style>			
 
-		<center><a href="#fin" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
+		<center><a href="#pca" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
 		<br>
+
+	</section>
+
+	<section id="pca">
+
+		<div id="pca_head" position="fixed" class="container">
+		   <div class="row">
+				<div class="col-md-1"> </div>
+		      	<div class="col-md-9" style="font-size:45px;">
+		         	<strong> Clustering Yearly Supply Releases </strong> 
+		         	<br><br>
+		      	</div>
+		    </div>
+		</div>
+
+		<div class="row">
+
+			<center><a id="button_pca1" class="btn btn-lg btn-light" style="font-weight:bold"> 
+				&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Matrix Factorization
+				</a>
+				<a id="button_pca2" class="btn btn-lg"> 
+				&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; PCA Results
+				</a>								
+			</center>
+
+			<div class="col-md-1 "> </div>
+			<div class="col-md-6 "> 
+				<br><br>
+				<div class="PCA-components" id="d7table" data-example-id="hoverable-table" style="font-size:15px;font-family:Courier New">
+			    	<table class="table table-hover table-condensed">
+			        	<thead>
+			          	<tr></tr>
+			          	<tr>
+				            <th> &emsp; </th>
+				            <th>Jan</th>
+				            <th>Feb</th>
+				            <th>Mar</th>
+				            <th>Apr</th>
+				            <th>May</th>
+				            <th>Jun</th>
+				            <th>Jul</th>
+				            <th>Aug</th>
+				            <th>Sep</th>
+				            <th>Oct</th>
+				            <th>Nov</th>
+				            <th>Dec</th>
+			          	</tr>
+			        </thead>
+			        <tbody>
+			          	<tr>
+				            <td> 2011 Actavis Pharma </td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>6</td>
+				            <td>2</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>4</td>
+				            <td>0</td>
+				            <td>1</td>
+				            <td>2</td>
+				            <td>2</td>
+			          	</tr>
+			          	<tr>
+				            <td> 2012 Actavis Pharma </td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>4</td>
+				            <td>3</td>
+				            <td>6</td>
+			          	</tr>
+			          	<tr>
+				            <td> 2013 Actavis Pharma </td>
+				            <td>2</td>
+				            <td>0</td>
+				            <td>7</td>
+				            <td>4</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>3</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>3</td>
+				        </tr>
+				        <tr>
+				            <td> 2014 Actavis Pharma </td>
+				            <td>3</td>
+				            <td>9</td>
+				            <td>5</td>
+				            <td>0</td>
+				            <td>3</td>
+				            <td>7</td>
+				            <td>0</td>
+				            <td>0</td>
+				            <td>4</td>
+				            <td>2</td>
+				            <td>4</td>
+				            <td>5</td>
+			         	</tr>
+			        </tbody>
+			      </table>
+				</div>		
+
+				<div id="d8table" style="display:none">
+					<center><h4>Top Component: &sigma;<sup>2</sup> = 0.52 </h4></center>
+					<div class="PCA-components1" data-example-id="hoverable-table" style="font-size:10px;font-family:Courier New">
+						<table class="table table-hover table-condensed">
+							<thead>
+								<tr></tr>
+								<tr>
+									<th>Jan</th>
+									<th>Feb</th>
+									<th>Mar</th>
+									<th>Apr</th>
+									<th>May</th>
+									<th>Jun</th>
+									<th>Jul</th>
+									<th>Aug</th>
+									<th>Sep</th>
+									<th>Oct</th>
+									<th>Nov</th>
+									<th>Dec</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="span1"><strong>0.925</strong></td>
+									<td class="span1">-0.08</td>
+									<td class="span1">-0.16</td>
+									<td class="span1">-0.07</td>
+									<td class="span1">-0.29</td>
+									<td class="span1">-0.11</td>
+									<td class="span1">-0.08</td>
+									<td class="span1">-0.03</td>
+									<td class="span1" class="span1">-0.05</td>
+									<td class="span1">-0.03</td>
+									<td class="span1" class="span1">0.003</td>
+									<td class="span1">-0.03</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<center>
+						<h4> Top Weights </h4> <br>
+					<center>
+					<div class="PCA-components2" data-example-id="hoverable-table" style="font-size:15px;font-family:Courier New">
+						<table class="table table-hover table-condensed">
+							<thead>
+								<tr></tr>
+								<tr>
+									<th> Supplier (Short) </th>
+									<th>Jan</th>
+									<th>Feb</th>
+									<th>Mar</th>
+									<th>Apr</th>
+									<th>May</th>
+									<th>Jun</th>
+									<th>Jul</th>
+									<th>Aug</th>
+									<th>Sep</th>
+									<th>Oct</th>
+									<th>Nov</th>
+									<th>Dec</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> 2014 DIRECT RX </td>
+									<td>255</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td> 2013 STATE FLORIDA </td>
+									<td>95</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 1</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td> 2014 STATE FLORIDA </td>
+									<td>57</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 1</td>
+									<td>50</td>
+									<td> 0</td>
+								</tr>
+								<tr>
+									<td> 2012 PREFERRED PHARMACEUTICALS </td>
+									<td>56</td>
+									<td>26</td>
+									<td>25</td>
+									<td>24</td>
+									<td> 3</td>
+									<td> 8</td>
+									<td>17</td>
+									<td> 3</td>
+									<td> 4</td>
+									<td> 6</td>
+									<td> 5</td>
+									<td> 4</td>
+								</tr>
+								<tr>
+									<td> 2011 CARDINAL HEALTH </td>
+									<td>40</td>
+									<td>15</td>
+									<td> 9</td>
+									<td> 8</td>
+									<td>41</td>
+									<td>36</td>
+									<td>22</td>
+									<td>23</td>
+									<td> 6</td>
+									<td>14</td>
+									<td>11</td>
+									<td> 1</td>
+								</tr>
+								<tr>
+									<td> 2011 CAMBER PHARMACEUTICALS </td>
+									<td>21</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td>11</td>
+									<td> 3</td>
+								</tr>
+								<tr>
+									<td> 2013 AVKARE</td>
+									<td>26</td>
+									<td> 9</td>
+									<td> 5</td>
+									<td> 0</td>
+									<td> 5</td>
+									<td> 8</td>
+									<td> 3</td>
+									<td> 5</td>
+									<td>13</td>
+									<td> 8</td>
+									<td> 3</td>
+									<td>10</td>
+								</tr>
+								<tr>
+									<td> 2013 MCKESSON CONTRACT </td>
+									<td>14</td>
+									<td> 5</td>
+									<td> 2</td>
+									<td> 1</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 0</td>
+									<td> 1</td>
+									<td> 2</td>
+									<td> 2</td>
+									<td> 0</td>
+									<td> 0</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+		    <div class="col-md-4">
+		    	<div id="d7">
+			    	<p class="lead"> 
+
+			    		By extracting the number of unique ANDAs released monthly by suppliers, we can also evaluate 
+			    		supplier release frequency using matrix factorization. We can designate each month as a separate
+			    		dimension and use PCA to determine whether any suppliers follow any monthly release patterns
+
+			    		<br><br>
+
+			    		SQL Filters: <br>
+			    		&emsp; <i class="fa fa-filter"></i> Year Range: 2011 - 2014 <br>
+		    			&emsp; <i class="fa fa-filter"></i> Suppliers must have at least 50 releases
+
+			    	</p>
+
+
+			    </div>
+
+				<div id="d8" style="display:none">
+
+			    	<p class="lead"> 
+
+			    		<br><br>
+			    		The variance states that the first component explains over half of the spread seen in the data. The first component that shows a large weight
+			    		for January states that a large number of suppliers have major releases in January. 
+
+			    		<br><br>
+			    		The supplier and their respective years with the highest weight can be determined by inverting the component matrix and multiplying it by each
+			    		feature vector. By doing this, we can see that the suppliers with the top weights do experience significantly higher volumes of releases in 
+			    		January compared to other months.
+
+			    		<br><br>
+			    		However, it should be noted that some of these suppliers are simply re-packagers which explains extraordinary large number of releases
+			    		in the month of January. 
+
+			    	</p>
+
+			    </div>
+			</div>
+
+			<center><a href="#fin" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
+			<br>			
+		</div>	
+
+		<div class="row"> <br><br></div>
+
+		<script>
+
+			$(document).ready(function(){
+			    $("#button_pca1").click(function(){
+			        $("#d7").fadeIn("slow");
+			        $("#d7table").fadeIn("slow");
+			        $("#d8").hide();
+			        $("#d8table").hide();
+
+			        $("#button_pca1").addClass("btn-light");			        
+			        $("#button_pca2").removeClass("btn-light");
+
+			        $("#button_pca1").css('font-weight','bold');
+			        $("#button_pca2").css('font-weight','normal');
+
+			    });
+				$("#button_pca2").click(function(){
+			        $("#d7").hide();
+			        $("#d7table").hide();
+			        $("#d8").fadeIn("slow");
+			        $("#d8table").fadeIn("slow");
+
+			        $("#button_pca2").addClass("btn-light");
+			        $("#button_pca1").removeClass("btn-light");
+
+			        $("#button_pca2").css('font-weight','bold');
+			        $("#button_pca1").css('font-weight','normal');
+
+			    });			    			    
+			});		
+
+		</script>
+
+
 
 	</section>
 
 	<section id="fin" class="fin">
 
-		<div id="frequency" position="fixed" class="container">
+		<div id="fin_head" position="fixed" class="container">
 		   <div class="row">
 				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
