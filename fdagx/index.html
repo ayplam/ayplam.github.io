@@ -37,11 +37,14 @@ layout: gxdefault
 
 		<div position:relative; width = "100%" height = "600px">
 
-		<p> <b> <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			<p> <b> <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 
-			# of FDA Approved Drugs From 2000 - 2015 </b></p>
+				# of FDA Approved Drugs From 2000 - 2015 
+			</b></p>
 
-		<div height="400px", style="float:left">			
+		</div>
+
+		<div height="400px", style="float:left">
 			<div id="history">
 				<svg style="height:400px"></svg>
 			</div>
@@ -62,7 +65,7 @@ layout: gxdefault
 
 				</p>
 
-			<center><a href="#fdadb" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Datasets</a></center>
+			<center><a href="#fdadb" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &thinsp; Next</a></center>
 
 			</div>
 
@@ -117,10 +120,15 @@ layout: gxdefault
 		<style>
 		#history svg { width: 240%; height: 100%;}
 		</style>
+
+		<hr width="80%">
+
+
 	</section>
 
 
-	<section id="fdadb" class="fdadb">	
+
+	<section id="fdadb" class="fdadb ss-style-doubleline">	
 
 		<div id="Databases" position="fixed" class="container">
 		   <div class="row">
@@ -199,6 +207,7 @@ layout: gxdefault
 			<div class="col-md-1"></div>
 			<div class="col-md-9">
 				<center><img src="../img/LKLJUia.png" alt="Orange Book"><br><br></center>
+				<center><a href="#epcdose" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next</a></center>
 			</div>
 
 		</div>
@@ -207,7 +216,7 @@ layout: gxdefault
 
 	<section id="epcdose" class="epcdose">
 
-		<div id="epcdose" position="fixed" class="container">
+		<div position="fixed" class="container">
 		   <div class="row">
 				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
@@ -216,20 +225,19 @@ layout: gxdefault
 		      </div>
 		   </div>
 		</div>
-
-
-	    <div class="container theme-showcase" role="main">
-
-			<div id="epcdose" style="float:left">     
+	
+		<div height="400px", style="float:left">
+			<div id="epcdose" style="padding-left:50px">     
 				<svg style="height:600px"></svg>
 				<br><br>
 			</div>
+		</div>
 
 
-			<div style="padding-left:680px" class="container-fluid">
-
-
-				<center><a id="button_model" class="btn btn-lg btn-light"> 
+		<div style="padding-left:680px" class="container-fluid">
+			<div class="col-md-1"></div>
+			<div class="col-md-9">
+				<center><a id="button_model" class="btn btn-lg btn-light" style="font-weight:bold"> 
 					&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Model
 					</a>
 					<a id="button_results" class="btn btn-lg"> 
@@ -259,7 +267,6 @@ layout: gxdefault
 					&emsp; All features were combined and fit to a Ridge regression using a leave-one-out cross-validation.
 
 					</h4>
-
 				</div>
 
 				<div class="span6" id="d2" style="display:none">
@@ -285,8 +292,7 @@ layout: gxdefault
 	    				&emsp; The RMSE of 2 years suggests that while there is some relationship between the date a brand name drug is released, its pharmaceutical class, and dosage form, it is not sufficient to explain the variance seen in generic conversion time.
 
 
-					</h4>
-				
+					</h4>			
 				</div>
 
 				<div class="span5" id="d3" style="display:none">
@@ -294,11 +300,15 @@ layout: gxdefault
 					<h3> <strong><center>Final Thoughts</center></strong> </h3>
 				
 					<h4>
-						&emsp; This model provides a good starting point for predicintg brand-to-generic conversion times. Future work includes incorporating additional features from other sources, including patent exclusivity periods, drug mechanism of action, and estimated market size. <br><br>
+						&emsp; This model provides a good starting point for predicting brand-to-generic conversion times. Future work includes incorporating additional features from other sources, including patent exclusivity periods, drug mechanism of action, and estimated market size. <br><br>
 					</h4>
-				</div>			
-			</div>	    
-	    </div>
+				</div>		
+			</div>	
+		</div>
+
+		<center><a href="#freq" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
+		<br>
+
 
 		<script>
 						
@@ -311,14 +321,23 @@ layout: gxdefault
 			        $("#button_results").removeClass("btn-light");
 			        $("#button_discussion").removeClass("btn-light");
 
+					$("#button_model").css('font-weight','bold');
+			        $("#button_results").css('font-weight','normal');	
+			        $("#button_discussion").css('font-weight','normal');			        
+
 			    });
 				$("#button_results").click(function(){
 			        $("#d1").hide();
 			        $("#d2").fadeIn("slow")
 			        $("#button_results").addClass("btn-light");
+			        
 			        $("#d3").hide();
 			        $("#button_model").removeClass("btn-light");
 			        $("#button_discussion").removeClass("btn-light");
+
+			        $("#button_model").css('font-weight','normal');
+			        $("#button_results").css('font-weight','bold');
+			        $("#button_discussion").css('font-weight','normal');
 			    });
 				$("#button_discussion").click(function(){
 			        $("#d1").hide();
@@ -327,6 +346,10 @@ layout: gxdefault
 			        $("#button_discussion").addClass("btn-light");
 			        $("#button_results").removeClass("btn-light");
 			        $("#button_model").removeClass("btn-light");
+
+					$("#button_model").css('font-weight','normal');
+			        $("#button_results").css('font-weight','normal');	
+			        $("#button_discussion").css('font-weight','bold');				        
 			    });					    			    
 			});
 
@@ -337,7 +360,7 @@ layout: gxdefault
 	            var chart = nv.models.scatterPlusLineChart()
 	                          .showDistX(true)    //showDist, when true, will display those little distribution lines on the axis.
 	                          .showDistY(true)
-	                          .margin({left: 80})  //Adjust chart margins to give the x-axis some breathing room.
+	                          .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
 	                          .transitionDuration(350)
 	                          .forceY([-0.5,19])
 	                          .forceX([-0.5,19])
@@ -376,7 +399,7 @@ layout: gxdefault
 		</script>			
 
 	    <style>
-		    #epcdose svg { width: 200%; height: 100%;}
+		    #epcdose svg { width: 220%; height: 100%;}
 	    </style>   
 
 	</section>
@@ -392,17 +415,18 @@ layout: gxdefault
 		   </div>
 		</div>		
 
-	    <div class="container theme-showcase" role="main">
-
-			<div id="releases" style="float:left">     
+		<div height="400px", style="float:left">
+			<div id="releases" style="padding-left:50px">     
 				<svg style="height:600px"></svg>
 				<br><br>
 			</div>
+		</div>
 
 
-			<div style="padding-left:680px" class="container-fluid">
+		<div style="padding-left:800px" class="container-fluid">
+			<div class="col-md-9">
 
-				<center><a id="button_time" class="btn btn-lg btn-light"> 
+				<center><a id="button_time" class="btn btn-lg btn-light" style="font-weight:bold"> 
 					&thinsp;<span class="glyphicon glyphicon-list-alt"></span> &thinsp; Time-Series Study
 					</a>
 					<a id="button_fft" class="btn btn-lg"> 
@@ -434,7 +458,10 @@ layout: gxdefault
 
 						<br><br>
 
-	    				If we define a "large release" as > 35 ANDAs released on a single day (top 97.5% of all releases/day):
+	    				If we define a "large release" as "> 35 ANDAs" released on a single day (top 97.5% of all releases/day):
+
+	    				<br>
+
 	    				<li> There is a 23% chance of another large release 59-66 days after current large release </li>
 	    				<li> This probability rises to 40% chance if looking 2-3 months after a current large release </li>
 
@@ -460,6 +487,10 @@ layout: gxdefault
 			        $("#d6").hide();
 			        $("#button_fft").removeClass("btn-light");
 			        makeThrehsoldChart('../data/releases09toCurr.json',1)
+
+			        $("#button_time").css('font-weight','bold');
+			        $("#button_fft").css('font-weight','normal');
+
 			    });
 				$("#button_fft").click(function(){
 			        $("#d4").hide();
@@ -467,6 +498,10 @@ layout: gxdefault
 			        $("#button_fft").addClass("btn-light");
 			        $("#d6").hide();
 			        $("#button_time").removeClass("btn-light");
+
+			        $("#button_fft").css('font-weight','bold');
+			        $("#button_time").css('font-weight','normal');
+
 			        makeThrehsoldChart('../data/frequency.json',2)
 			    });			    			    
 			});
@@ -528,8 +563,11 @@ layout: gxdefault
 
 
 		<style>
-			#releases svg { width: 240%; height: 75%;}
+			#releases svg { width: 260%; height: 75%;}
 		</style>			
+
+		<center><a href="#fin" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
+		<br>
 
 	</section>
 
@@ -540,11 +578,46 @@ layout: gxdefault
 				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
 		         	<strong> Project Conclusions </strong> 
-		      </div>
+		         	<br><br>
+		      	</div>
+		    </div>
+
+		    <div class="row">
+				<p class="lead">
+					
+					Using publicly available data, predicting brand-to-generic conversion is possible to within 2 years. However, this model can be vastly improved by scraping other information, especially exclusivity periods, which are known when new brand name drugs are released. 
+					<br><br>
+					In addition, release rates can be predicted simply by using past historical release data. Further studies may include predicting whether particular suppliers follow any seasonality trends.
+					<br><br>
+
+				</p> 		      	
 		   </div>
 		</div>		
 
-
 	</section>
+
+
+    <section id="contact" class="bg-primary">
+        <div class="container">
+            <br><br><br><br><br>
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Contact</strong>
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <ul class="list-unstyled">
+                        <li><span class="glyphicon glyphicon-phone"></span> &emsp; (650) 397 1526</li>
+                        <li><span class="glyphicon glyphicon-inbox"></span> &emsp; <a href="mailto:ayplam@gmail.com">ayplam@gmail.com</a>
+                        </li>
+                    </ul>
+                    <br><br><br><br><br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </section>	
 
 </section>
