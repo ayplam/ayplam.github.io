@@ -204,13 +204,172 @@ layout: gxdefault
 
 		<div class="row">
 			
-			<div class="col-md-1"></div>
-			<div class="col-md-9">
-				<center><img src="../img/LKLJUia.png" alt="Orange Book"><br><br></center>
-				<center><a href="#epcdose" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next</a></center>
+		</div>
+
+	</section>
+
+	<section id="sqlquery">
+
+		<div position="fixed" class="container">
+		   <div class="row">
+				<div class="col-md-1"> </div>
+		      	<div class="col-md-9" style="font-size:45px;">
+		      		<br>
+		         	<strong> PSQL to Extract Brand and Generic Pairs </strong> 
+		      </div>
+		   </div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-9 col-md-offset-1">
+				<p class="lead">
+					<br>
+					With a bit of parsing in python, the FDA database can be loaded into PSQL. Since this table is 90,000 rows, tables for brand (NDA) drugs and generic (ANDA) drugs have been created to make our SQL queries look cleaner. We use distinct to toss out any duplicates and always take the earliest release of a drug.
+					<br><br>
+					We can also parse the <a href="http://www.fda.gov/downloads/Drugs/DevelopmentApprovalProcess/UCM071436.pdf">Orange Book of Bioequivalence</a>, which contains all drugs that are established equivalents of each other. All application numbers and drug names that are listed as "AB" have been extracted into a CSV. 
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5 col-md-offset-2">
+					<pre><code class="sql">
+-- Table for the entire FDA drug directory.
+CREATE TABLE ndcdir ( 
+	prodid VARCHAR(47), 
+	prodndc varchar(10),                 --National Drug Code
+	prodtypename varchar(32), 
+	proprietaryname varchar(256),        --Drug brand name
+	proprietarynamesuffix varchar(128), 
+	nonproprietaryname varchar(512),     --Drug generic name
+	dosageform varchar(64),              --e.g. tablet, cream
+	routename varchar(128),              --e.g. oral, patch
+	startmktdate date,                   --FDA approval date
+	endmktdate date,			
+	mktcategoryname varchar(64), 
+	appnum varchar(11),                  --Application number
+	supplier varchar(120),               --Supplier name
+	substancename varchar(4096), 
+	activenumstr varchar(1024),          --Strength e.g. 5g,10mg
+	activeingredunit varchar(4096), 
+	pharmclass varchar(4096), 
+	deaschedule varchar(4), 
+	epc varchar(1024),                   --Established pharmaceutical class
+	moa varchar(424)                     --Mechanism of action
+);
+					</code></pre>
+			</div>
+			<div class="col-md-3">
+				<pre><code class="sql">
+-- Table of all brand and generic drugs
+CREATE TABLE fdadrugs AS
+	SELECT DISTINCT ON(prodndc) * FROM ndcdir 
+	WHERE (mktcategoryname IN ('ANDA', 'NDA', 'NDA AUTHORIZED GENERIC')) 
+	ORDER BY prodndc, startmktdate;
+
+-- Table of all brand name drugs
+CREATE TABLE ndadrugs AS
+	SELECT DISTINCT ON(prodndc) * FROM ndcdir 
+	WHERE (mktcategoryname IN ('NDA')) 
+	ORDER BY prodndc, startmktdate;
+
+-- Table of all generic drugs
+CREATE TABLE andadrugs AS
+	SELECT DISTINCT ON(prodndc) * FROM ndcdir 
+	WHERE (mktcategoryname LIKE 'ANDA' )  
+	ORDER BY prodndc, startmktdate;
+
+-- Table of all drugs that have an established 
+-- bioequivalent drug.
+CREATE TABLE fdandapairs ( 
+	appnum varchar(10), 
+	drug varchar(128)
+)	
+
+				</code></pre>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-7 col-md-offset-2">
+				<p class="lead">
+					<br>
+					&emsp;The first step is to match up the drugs which have established bioequivalents (FDANDAPAIRS) with the FDA drug directory (NDCDIR).
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4 col-md-offset-3">
+				<pre><code class="sql">
+
+CREATE TABLE bxgxmatch_fda AS
+  SELECT * FROM
+    ( SELECT fdadrugs.*, fdandapairs.drug 
+    FROM fdandapairs
+    INNER JOIN
+    fdadrugs
+    ON fdadrugs.appnum LIKE fdandapairs.appnum ) AS drugmatch
+ORDER BY drug,startmktdate;
+
+				</code></pre>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-7 col-md-offset-2">
+
+
+				<p class="lead">
+					<br>
+					&emsp;We can then extract the first release of a brand name drug and the first release of a generic drug and join them on the drug name. This allows us to pair up the brand name drugs to their generic name counterparts.
+
+				</p>				
+
+				<pre><code class="sql">
+
+CREATE TABLE bxgxdiff_fda AS
+  SELECT *, gxdate - bxdate AS bxgxtime FROM 
+    (SELECT DISTINCT ON (drug) SUBSTRING(UPPER(prodid),'.{36}$') AS gxprodid, 
+      startmktdate AS gxdate, 
+      nonproprietaryname AS gxname, 
+      drug, 
+      epc, 
+      dosageform, 
+      routename 
+      FROM bxgxmatch_fda 
+      WHERE appnum LIKE 'ANDA%') AS firstanda
+    JOIN
+    SELECT DISTINCT ON (drug) SUBSTRING(UPPER(prodid),'.{36}$') AS bxprodid, 
+      startmktdate AS bxdate, 
+      proprietaryname AS bxname, drug AS ndadrug 
+      FROM bxgxmatch_fda 
+      WHERE appnum LIKE 'NDA%') AS firstnda
+    ON firstanda.drug LIKE firstnda.ndadrug;
+
+ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
+
+-- The minimum exclusivity is 180 days. Remove anything that doesn't match that.
+\copy (SELECT * FROM bxgxdiff_fda WHERE bxgxtime > 180) TO 'firstbxgxmatch_fdalist.csv' WITH CSV HEADER DELIMITER AS ',';
+
+				</code></pre>
 			</div>
 
+
+			<div class="col-md-7 col-md-offset-2">
+
+				<p class="lead">
+					<br>
+					&emsp;The results can be exported to a CSV file for modeling in Python.
+					<br>
+
+				</p>
+			</div>
 		</div>
+
+		<center>
+			<a href="#epcdose" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next</a>
+		</center>
 
 	</section>
 
