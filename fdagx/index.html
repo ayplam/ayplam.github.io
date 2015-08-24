@@ -250,15 +250,13 @@ layout: gxdefault
 
 				<div class="span6" id="d1">
 
-					<h3> <strong> <center>Model Details </center> </strong> </h3>
-
-					<h4>
+					<p class="lead">
 					&emsp; The following features were used to predict the time for generic conversion:
 											
 					<br><br>
-					<i class="fa fa-fw fa-check-circle-o"></i> &emsp; FDA Market Date <br>
-					<i class="fa fa-fw fa-check-circle-o"></i> &emsp; Established pharmaceutical class (EPC) <br>
-					<i class="fa fa-fw fa-check-circle-o"></i> &emsp; Dosage form<br>
+					<i class="fa fa-fw fa-check-circle-o"></i> &thinsp; FDA Market Date <br>
+					<i class="fa fa-fw fa-check-circle-o"></i> &thinsp; Established pharmaceutical class (EPC) <br>
+					<i class="fa fa-fw fa-check-circle-o"></i> &thinsp; Dosage form<br>
 
 					<br>
 
@@ -266,14 +264,12 @@ layout: gxdefault
 
 					&emsp; All features were combined and fit to a Ridge regression using a leave-one-out cross-validation.
 
-					</h4>
+					</p>
 				</div>
 
 				<div class="span6" id="d2" style="display:none">
 
-					<h3> <strong><center>Results</center></strong> </h3>
-
-					<h4>
+					<p class="lead">
 
 						&emsp; The model appears to underpredict drugs that took fewer than 10 years for conversion and overpredict drugs that took more than 10 years for conversion. 
 
@@ -282,32 +278,29 @@ layout: gxdefault
 						Statistics:
 
 						<br><br>
-
-						<li> R<sup>2</sup>: 0.829 </li>
-	    				<li> RMSE: 2.00 years </li>
-	    				<li> Abs Mean Err: 1.56 years </li>
-
+						<i class="fa fa-angle-right"></i> &thinsp; R<sup>2</sup>: 0.829 
+	    				<i class="fa fa-angle-right"></i> &thinsp; RMSE: 2.00 years 
+	    				<i class="fa fa-angle-right"></i> &thinsp; Abs Mean Err: 1.56 years
+	    				
 	    				<br><br>
 
 	    				&emsp; The RMSE of 2 years suggests that while there is some relationship between the date a brand name drug is released, its pharmaceutical class, and dosage form, it is not sufficient to explain the variance seen in generic conversion time.
 
 
-					</h4>			
+					</p>			
 				</div>
 
 				<div class="span5" id="d3" style="display:none">
 
-					<h3> <strong><center>Final Thoughts</center></strong> </h3>
-				
-					<h4>
+					<p class="lead">
 						&emsp; This model provides a good starting point for predicting brand-to-generic conversion times. Future work includes incorporating additional features from other sources, including patent exclusivity periods, drug mechanism of action, and estimated market size. <br><br>
-					</h4>
+					</p>
 				</div>		
 			</div>	
 		</div>
 
 		<center><a href="#freq" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
-		<br>
+		<br><br>
 
 
 		<script>
@@ -423,7 +416,7 @@ layout: gxdefault
 		</div>
 
 
-		<div style="padding-left:800px" class="container-fluid">
+		<div style="padding-left:810px" class="container-fluid">
 			<div class="col-md-9">
 
 				<center><a id="button_time" class="btn btn-lg btn-light" style="font-weight:bold"> 
@@ -438,13 +431,13 @@ layout: gxdefault
 
 					<h3> <strong> <center>Modeling Supplier Releases </center> </strong> </h3>
 
-					<h4>
+					<p class="lead">
 					&emsp; We can analyze the magnitude and frequency of releases of drugs over time by using a fourier transform.
 					<br><br>
 											
 					&emsp; To remove the "noise" of some smaller suppliers, only suppliers that had at least 50 unique ANDAs were included, and only data from 2000 to June 2015 was included in the frequency analysis. <br><br>
 
-					</h4>
+					</p>
 
 				</div>
 
@@ -452,7 +445,7 @@ layout: gxdefault
 
 					<h3> <strong><center>Results</center></strong> </h3>
 
-					<h4>
+					<p class="lead">
 
 						&emsp; The fourier transform reveals a dominant frequency at 52 days/cycle with a smaller harmonic frequency at 104 days/cycle. This suggests that approximately every 52 days, we can expect to see a "peak" in the time domain.
 
@@ -462,14 +455,14 @@ layout: gxdefault
 
 	    				<br>
 
-	    				<li> There is a 23% chance of another large release 59-66 days after current large release </li>
-	    				<li> This probability rises to 40% chance if looking 2-3 months after a current large release </li>
+	    				<i class="fa fa-angle-right"></i> &thinsp; There is a 23% chance of another large release 59-66 days after current large release <br>
+	    				<i class="fa fa-angle-right"></i> &thinsp; This probability rises to 40% chance if looking 2-3 months after a current large release <br>
 
 	    				<br>
 
 	    				This frequency analysis suggests that monthly sales forecasts can be improved simply by looking at the history of previous releases.
 
-					</h4>
+					</p>
 				
 				</div>
 			</div>
@@ -567,7 +560,7 @@ layout: gxdefault
 		</style>			
 
 		<center><a href="#pca" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
-		<br>
+		<br><br>
 
 	</section>
 
@@ -728,7 +721,7 @@ layout: gxdefault
 							<thead>
 								<tr></tr>
 								<tr>
-									<th> Supplier (Short) </th>
+									<th> Supplier (Abbv) </th>
 									<th>Jan</th>
 									<th>Feb</th>
 									<th>Mar</th>
@@ -910,12 +903,15 @@ layout: gxdefault
 
 			    </div>
 			</div>
-
-			<center><a href="#fin" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
-			<br>			
 		</div>	
 
-		<div class="row"> <br><br></div>
+		<div class="row"> 
+
+			<br><br>
+			<center><a href="#fin" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
+			<br><br>			
+
+		</div>
 
 		<script>
 
@@ -960,18 +956,19 @@ layout: gxdefault
 		   <div class="row">
 				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
+		      		<br>
 		         	<strong> Project Conclusions </strong> 
-		         	<br><br>
+		         	<br>
 		      	</div>
 		    </div>
 
 		    <div class="row">
 				<p class="lead">
-					
+					<br>
 					Using publicly available data, predicting brand-to-generic conversion is possible to within 2 years. However, this model can be vastly improved by scraping other information, especially exclusivity periods, which are known when new brand name drugs are released. 
 					<br><br>
-					In addition, release rates can be predicted simply by using past historical release data. Further studies may include predicting whether particular suppliers follow any seasonality trends.
-					<br><br>
+					In addition, time-series analysis can be performed by using a fourier transform to evaluate release frequency or with matrix factorization to evaluate seasonality. Patterns extracted from these results can be used to better predict monthly sales for improved stock forecasting.
+					<br><br><br><br><br>
 
 				</p> 		      	
 		   </div>
