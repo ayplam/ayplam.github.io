@@ -25,7 +25,7 @@ layout: gxdefault
 		</div>
 	</header>
 
-	<section id="background" class="background">
+	<section id="about" class="background">
 		<div id="about" position="fixed" class="container">
 		   <div class="row">
 		   		<div class="col-md-1"> </div>
@@ -234,6 +234,9 @@ layout: gxdefault
 					With a bit of parsing in python, the FDA database can be loaded into PSQL. Since this table is 90,000 rows, tables for brand (NDA) drugs and generic (ANDA) drugs have been created to make our SQL queries look cleaner. We use distinct to toss out any duplicates and always take the earliest release of a drug.
 					<br><br>
 					We can also parse the <a href="http://www.fda.gov/downloads/Drugs/DevelopmentApprovalProcess/UCM071436.pdf">Orange Book of Bioequivalence</a>, which contains all drugs that are established equivalents of each other. All application numbers and drug names that are listed as "AB" have been extracted into a CSV. 
+					<br><br>
+					The below are the tables used for all queries.
+
 				</p>
 			</div>
 		</div>
@@ -265,7 +268,7 @@ CREATE TABLE ndcdir (
 );
 					</code></pre>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<pre><code class="sql">
 -- Table of all brand and generic drugs
 CREATE TABLE fdadrugs AS
@@ -309,7 +312,6 @@ CREATE TABLE fdandapairs (
 		<div class="row">
 			<div class="col-md-4 col-md-offset-3">
 				<pre><code class="sql">
-
 CREATE TABLE bxgxmatch_fda AS
   SELECT * FROM
     ( SELECT fdadrugs.*, fdandapairs.drug 
@@ -318,7 +320,6 @@ CREATE TABLE bxgxmatch_fda AS
     fdadrugs
     ON fdadrugs.appnum LIKE fdandapairs.appnum ) AS drugmatch
 ORDER BY drug,startmktdate;
-
 				</code></pre>
 			</div>
 		</div>
@@ -393,7 +394,7 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 	
 		<div height="400px", style="float:left">
 			<div id="epcdose" style="padding-left:50px">     
-				<svg style="height:600px"></svg>
+				<svg style="height:570px"></svg>
 				<br><br>
 			</div>
 		</div>
@@ -1130,9 +1131,9 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 		    <div class="row">
 				<p class="lead">
 					<br>
-					Using publicly available data, predicting brand-to-generic conversion is possible to within 2 years. However, this model can be vastly improved by scraping other information, especially exclusivity periods, which are known when new brand name drugs are released. 
+					Using publicly available data, predicting brand-to-generic conversion is possible to within 2 years. This model can be vastly improved by scraping other information, especially exclusivity periods, which are known when new brand name drugs are released. 
 					<br><br>
-					In addition, time-series analysis can be performed by using a fourier transform to evaluate release frequency or with matrix factorization to evaluate seasonality. Patterns extracted from these results can be used to better predict monthly sales for improved stock forecasting.
+					In addition, time-series analysis can be performed by using a fourier transform to evaluate release frequency or with matrix factorization to evaluate seasonality. Release patterns can be predicted by looking at previous history of generic drug releases to help improve monthly sales forecasting. A seasonality assessment suggests that a disproportionately large number of generic drugs are released in January.
 					<br><br><br><br><br>
 
 				</p> 		      	
