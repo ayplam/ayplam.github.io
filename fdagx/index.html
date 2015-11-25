@@ -28,7 +28,6 @@ layout: gxdefault
 	<section id="about" class="background">
 		<div id="about" position="fixed" class="container">
 		   <div class="row">
-		   		<div class="col-md-1"> </div>
 		      	<div class="col-md-6" style="font-size:50px;">
 		         <strong>  Why Generic Drugs? </strong>
 		      </div>
@@ -86,12 +85,10 @@ layout: gxdefault
 			d3.json('drugcounthistory_line.json',function(data) {
 				nv.addGraph(function() {
 					var chart = nv.models.lineChart()
-	                .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
-	                .margin({right: 50})  //Adjust chart margins to give the x-axis some breathing room.
-	                .transitionDuration(350)  //how fast do you want the lines to transition?
-	                .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
-	                .showYAxis(true)        //Show the y-axis
-	                .showXAxis(true)        //Show the x-axis					;
+	                		.options({
+						                transitionDuration: 300,
+						                useInteractiveGuideline: true
+						            });
 
 	                var xticks = [1041422400000, 1136116800000, 1230811200000, 1325419200000, 1420113600000]
 
@@ -133,7 +130,6 @@ layout: gxdefault
 		<div id="Databases" position="fixed" class="container">
 		   <div class="row">
 		   	<br>
-				<div class="col-md-1"> </div>
 		      	<div class="col-md-6" style="font-size:50px;">
 		         	<strong> Databases </strong> 
 		      </div>
@@ -206,8 +202,11 @@ layout: gxdefault
 			
 			<div class="col-md-1"></div>
 			<div class="col-md-9">
+				<br>
 				<center><img src="../img/LKLJUia.png" alt="Orange Book"><br><br></center>
+				<br>
 				<center><a href="#sqlquery" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next</a></center>
+				<br>
 			</div>
 
 		</div>
@@ -218,9 +217,7 @@ layout: gxdefault
 
 		<div position="fixed" class="container">
 		   <div class="row">
-				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
-		      		<br>
 		         	<strong> PSQL to Extract Brand and Generic Pairs </strong> 
 		      </div>
 		   </div>
@@ -231,146 +228,42 @@ layout: gxdefault
 			<div class="col-md-9 col-md-offset-1">
 				<p class="lead">
 					<br>
-					With a bit of parsing in python, the FDA database can be loaded into PSQL. Since this table is 90,000 rows, tables for brand (NDA) drugs and generic (ANDA) drugs have been created to make our SQL queries look cleaner. We use distinct to toss out any duplicates and always take the earliest release of a drug.
+					With a bit of parsing in python, the FDA database can be loaded into PSQL.
 					<br><br>
 					We can also parse the <a href="http://www.fda.gov/downloads/Drugs/DevelopmentApprovalProcess/UCM071436.pdf">Orange Book of Bioequivalence</a>, which contains all drugs that are established equivalents of each other. All application numbers and drug names that are listed as "AB" have been extracted into a CSV. 
 					<br><br>
-					The below are the tables used for all queries.
+					The below showcases a SQL query used to determine the time between a brand name and generic version release.
 
 				</p>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-5 col-md-offset-2">
-					<pre><code class="sql">
--- Table for the entire FDA drug directory.
-CREATE TABLE ndcdir ( 
-	prodid VARCHAR(47), 
-	prodndc varchar(10),                 --National Drug Code
-	prodtypename varchar(32), 
-	proprietaryname varchar(256),        --Drug brand name
-	proprietarynamesuffix varchar(128), 
-	nonproprietaryname varchar(512),     --Drug generic name
-	dosageform varchar(64),              --e.g. tablet, cream
-	routename varchar(128),              --e.g. oral, patch
-	startmktdate date,                   --FDA approval date
-	endmktdate date,			
-	mktcategoryname varchar(64), 
-	appnum varchar(11),                  --Application number
-	supplier varchar(120),               --Supplier name
-	substancename varchar(4096), 
-	activenumstr varchar(1024),          --Strength e.g. 5g,10mg
-	activeingredunit varchar(4096), 
-	pharmclass varchar(4096), 
-	deaschedule varchar(4), 
-	epc varchar(1024),                   --Established pharmaceutical class
-	moa varchar(424)                     --Mechanism of action
-);
-					</code></pre>
-			</div>
-			<div class="col-md-4">
-				<pre><code class="sql">
--- Table of all brand and generic drugs
-CREATE TABLE fdadrugs AS
-	SELECT DISTINCT ON(prodndc) * FROM ndcdir 
-	WHERE (mktcategoryname IN ('ANDA', 'NDA', 'NDA AUTHORIZED GENERIC')) 
-	ORDER BY prodndc, startmktdate;
-
--- Table of all brand name drugs
-CREATE TABLE ndadrugs AS
-	SELECT DISTINCT ON(prodndc) * FROM ndcdir 
-	WHERE (mktcategoryname IN ('NDA')) 
-	ORDER BY prodndc, startmktdate;
-
--- Table of all generic drugs
-CREATE TABLE andadrugs AS
-	SELECT DISTINCT ON(prodndc) * FROM ndcdir 
-	WHERE (mktcategoryname LIKE 'ANDA' )  
-	ORDER BY prodndc, startmktdate;
-
--- Table of all drugs that have an established 
--- bioequivalent drug.
-CREATE TABLE fdandapairs ( 
-	appnum varchar(10), 
-	drug varchar(128)
-)	
-
-				</code></pre>
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-md-7 col-md-offset-2">
-				<p class="lead">
-					<br>
-					&emsp;The first step is to match up the drugs which have established bioequivalents (FDANDAPAIRS) with the FDA drug directory (NDCDIR).
-				</p>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-4 col-md-offset-3">
-				<pre><code class="sql">
-CREATE TABLE bxgxmatch_fda AS
-  SELECT * FROM
-    ( SELECT fdadrugs.*, fdandapairs.drug 
-    FROM fdandapairs
-    INNER JOIN
-    fdadrugs
-    ON fdadrugs.appnum LIKE fdandapairs.appnum ) AS drugmatch
-ORDER BY drug,startmktdate;
-				</code></pre>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-7 col-md-offset-2">
-
-
-				<p class="lead">
-					<br>
-					&emsp;We can then extract the first release of a brand name drug and the first release of a generic drug and join them on the drug name. This allows us to pair up the brand name drugs to their generic name counterparts.
-
-				</p>				
+			<div class="col-md-8 col-md-offset-2">
 
 				<pre><code class="sql">
-
 CREATE TABLE bxgxdiff_fda AS
   SELECT *, gxdate - bxdate AS bxgxtime FROM 
-    (SELECT DISTINCT ON (drug) SUBSTRING(UPPER(prodid),'.{36}$') AS gxprodid, 
+    (SELECT DISTINCT ON (drug) SUBSTRING(UPPER(prodid),'.{36}$') AS gxprodid,  --Used to eliminate identical products
       startmktdate AS gxdate, 
       nonproprietaryname AS gxname, 
-      drug, 
+      drug AS andadrug, 		-- Nonproprietary names are the same between generic and brand drugs
       epc, 
       dosageform, 
       routename 
-      FROM bxgxmatch_fda 
-      WHERE appnum LIKE 'ANDA%') AS firstanda
+      FROM bxgxmatch_fda 		--The table, "bxgxmatch" joins the Orange Book database with the FDA database
+      WHERE appnum LIKE 'ANDA%') AS firstanda		--All generic drugs are filed as ANDAs
     JOIN
     SELECT DISTINCT ON (drug) SUBSTRING(UPPER(prodid),'.{36}$') AS bxprodid, 
       startmktdate AS bxdate, 
-      proprietaryname AS bxname, drug AS ndadrug 
+      proprietaryname AS bxname, 
+      drug AS ndadrug 	
       FROM bxgxmatch_fda 
-      WHERE appnum LIKE 'NDA%') AS firstnda
+      WHERE appnum LIKE 'NDA%') AS firstnda 		--All generic drugs are filed as NDAs
     ON firstanda.drug LIKE firstnda.ndadrug;
-
-ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 
 -- The minimum exclusivity is 180 days. Remove anything that doesn't match that.
 \copy (SELECT * FROM bxgxdiff_fda WHERE bxgxtime > 180) TO 'firstbxgxmatch_fdalist.csv' WITH CSV HEADER DELIMITER AS ',';
-
 				</code></pre>
-			</div>
-
-
-			<div class="col-md-7 col-md-offset-2">
-
-				<p class="lead">
-					<br>
-					&emsp;The results can be exported to a CSV file for modeling in Python.
-					<br>
-
-				</p>
 			</div>
 		</div>
 
@@ -384,7 +277,6 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 
 		<div position="fixed" class="container">
 		   <div class="row">
-				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
 		      		<br>
 		         	<strong> Predicting Brand-to-Generic Conversion </strong> 
@@ -513,45 +405,58 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 			});
 
 
-			d3.json('../data/epcdosemodel.json',function(data) {
 
+
+	  d3.json('../data/epcdosemodel.json',function(data) {
 	          nv.addGraph(function() {
-	            var chart = nv.models.scatterPlusLineChart()
-	                          .showDistX(true)    //showDist, when true, will display those little distribution lines on the axis.
-	                          .showDistY(true)
-	                          .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
-	                          .transitionDuration(350)
-	                          .forceY([-0.5,19])
-	                          .forceX([-0.5,19])
-	                          .showLegend(false)
-	                          .color(d3.scale.category10().range());
+	            var chart = nv.models.scatterChart()
+			  		.showDistX(true)
+		            .showDistY(true)
+		            .useVoronoi(true)
+		            .color(d3.scale.category10().range())
+		            .duration(300)
+		            .showLegend(false)
+		        ;
+		        chart.dispatch.on('renderEnd', function(){
+		            console.log('render complete');
+		        });
+
 
 	            //Configure how the tooltip looks.
-	            chart.tooltipContent(function(key) {
-	                var splitkey = key.split('; ')
-	                return '<h4>' + splitkey[0] + '</h4>' + '<h4>' + splitkey[1] + '</h4>';
+	            chart.tooltip.contentGenerator(function(key) {
+	            	var bxgx = key.series[0].key
+	            	splitkey = bxgx.split('; ')
+	            	bx = splitkey[0].split(': ')
+	            	gx = splitkey[1].split(': ')
+	            	var xval = Math.round(key.series[0].values[0].x * 100)/100
+	            	var yval = Math.round(key.series[0].values[0].y * 100)/100
+
+	                return '<h5>' + '<b>Brand</b>: ' + bx[1] + '</h5>' 
+	                	+ '<h5>' + '<b>Generic</b>: ' +  gx[1] + '</h5>' 
+	                	+ '<h5>' + '<b>True</b>: ' + xval + ' yrs</h5>'
+	                	+ '<h5>' + '<b>Predicted</b>: ' + yval + ' yrs</h5>';
+
 	            });
+
+				var ticks = [2,4,6,8,10,12,14,16,18]
 
 	            //Axis settings
 	            chart.xAxis
-	              .tickFormat(d3.format('1.f'))
-	              .axisLabel('True: Years for Conversion');
+	              .axisLabel('True: Years for Conversion')
+	              .tickValues(ticks);	
 	            chart.yAxis
-	              .axisLabel('Predicted: Years for Conversion');
+	              .axisLabel('Predicted: Years for Conversion')
+	              .tickValues(ticks);
 	            
-	            console.log(d3.scale.category10().range())
-
 	            d3.select('#epcdose svg')
 	                .datum(data)
 	                .call(chart);
-					
-				console.log(data)
+						          
 
-	          
-	            nv.utils.windowResize(chart.update);
+		        nv.utils.windowResize(chart.update);
 
-	            return chart;
-
+		        chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
+		        return chart;
 	          });
 
 	        });
@@ -567,15 +472,15 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 
 		<div id="frequency" position="fixed" class="container">
 		   <div class="row">
-				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
 		         	<strong> Generics Release Frequency </strong> 
+		         	<br>
 		      </div>
 		   </div>
 		</div>		
 
 		<div height="400px", style="float:left">
-			<div id="releases" style="padding-left:50px">     
+			<div id="freq" style="padding-left:50px">     
 				<svg style="height:600px"></svg>
 				<br><br>
 			</div>
@@ -636,8 +541,14 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 
 		<script>
 
-			makeThrehsoldChart('../data/releases09toCurr.json',1)
-		
+			function dateFromDay(year, day){
+		        var date = new Date(year, 0,1); // initialize a date in `year-01-01`
+		        return new Date(date.setDate(day+1)); // add the number of days
+		    }				
+
+		    makeFrequencyChart(1)
+
+ 
 			$(document).ready(function(){
 			    $("#button_time").click(function(){
 			        $("#d4").fadeIn("slow");
@@ -645,7 +556,7 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 			        $("#d5").hide();
 			        $("#d6").hide();
 			        $("#button_fft").removeClass("btn-light");
-			        makeThrehsoldChart('../data/releases09toCurr.json',1)
+			        makeFrequencyChart(1)
 
 			        $("#button_time").css('font-weight','bold');
 			        $("#button_fft").css('font-weight','normal');
@@ -661,68 +572,73 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 			        $("#button_fft").css('font-weight','bold');
 			        $("#button_time").css('font-weight','normal');
 
-			        makeThrehsoldChart('../data/frequency.json',2)
+			        makeFrequencyChart(2)
 			    });			    			    
 			});
 
+			function makeFrequencyChart(val) {
 
-			function makeThrehsoldChart(file,val) {
-				d3.json(file,function(data) {
+				if (val == 1)
+				{
+					var filename = '../data/releases09toCurr.json';
+					var xlabel = 'Time (Years)';
+					var ylabel = 'Number of Releases';
+					var xticks = [2009, 2010, 2011, 2012, 2013, 2014, 2015];
+				} else {
+					var filename = '../data/frequency.json';
+					var xlabel = 'Frequency';
+					var ylabel = 'Magnitude';
+					var xticks = []
+
+				}
+
+				d3.json(filename,function(data) {
 					nv.addGraph(function() {
 						var chart = nv.models.lineChart()
-						            .margin({left: 100, top: 100})  //Adjust chart margins to give the x-axis some breathing room.
-						            .transitionDuration(350)  //how fast do you want the lines to transition?
-						            .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
-						            .showYAxis(true)        //Show the y-axis
-						            .showXAxis(true)        //Show the x-axis
-						;
+		                		.options({
+							                transitionDuration: 500,
+							                useInteractiveGuideline: true
+							            });
 
-						console.log(file)
-						console.log(val)
+						chart.xAxis //Chart x-axis settings
+						    .axisLabel(xlabel)
+						    .tickValues(xticks)
+						    .tickFormat(d3.format('.f'));
+						chart.yAxis //Chart y-axis settings
+						    .axisLabel(ylabel)
+						    .tickFormat(d3.format('f'));
+						chart.tooltip.contentGenerator(function(key) {
 
-						if (val == 1) {
-						    chart.xAxis //Chart x-axis settings
-						        .axisLabel('Time (Years)')
-						        .tickValues([2009, 2010, 2011, 2012, 2013, 2014, 2015])
-						        .tickFormat(d3.format('.f'));
-						    chart.yAxis //Chart y-axis settings
-						        .axisLabel('Number Of Releases')
-						        .tickFormat(d3.format('f'));
-						    chart.tooltipContent(function(key, x, y) {
-						        var datevar = dateFromDay(Math.round(x), parseInt((x - Math.round(x)) * 365))
-						        var datestr = datevar.toString();
-						        return '<h4> &emsp;' +  parseInt(y) + ' releases </h4><h4>  &emsp;on ' + datestr.substring(4, 15)  + '  &emsp; </h4>';
-						    });
-						} else {
-						    chart.xAxis //Chart x-axis settings
-						        .axisLabel('Frequency of Releases (Every N Days/Year)')
-						        .tickFormat(d3.format('f'));
-						    chart.yAxis //Chart y-axis settings
-						        .axisLabel('Magnitude')
-						        .tickFormat(d3.format('.02f'));
-						}
+			            	// var bxgx = key.series[0].key
+			            	// splitkey = bxgx.split('; ')
+			            	// bx = splitkey[0].split(': ')
+			            	// gx = splitkey[1].split(': ')
+			            	var x = key.series[0].values[0].x
+			            	var y = key.series[0].values[0].y
 
-					    d3.select('#releases svg') //Select the < svg > element you want to render the chart in .
-					        .datum(data) //Populate the < svg > element with chart data...
-					        .call(chart); //Finally, render the chart!						
+						    var datevar = dateFromDay(Math.round(x), parseInt((x - Math.round(x)) * 365))
+						    var datestr = datevar.toString();
+						    return '<h4> &emsp;' +  parseInt(y) + ' releases </h4><h4>  &emsp;on ' + datestr.substring(4, 15)  + '  &emsp; </h4>'
+						})
 
+						d3.select('#freq svg')
+							.datum(data)
+							.call(chart);
 
-					  //Update the chart when window resizes.
-					  // nv.utils.windowResize(function() { chart.update() });
+						nv.utils.windowResize(chart.update);
+
 					  return chart;
 					});
-				})
-			}		
+				});			
+			}
 
-			function dateFromDay(year, day){
-		        var date = new Date(year, 0,1); // initialize a date in `year-01-01`
-		        return new Date(date.setDate(day+1)); // add the number of days
-		    }		
+
+
 		</script>
 
 
 		<style>
-			#releases svg { width: 260%; height: 75%;}
+			#freq svg { width: 260%; height: 75%;}
 		</style>			
 
 		<center><a href="#pca" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
@@ -734,7 +650,6 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 
 		<div id="pca_head" position="fixed" class="container">
 		   <div class="row">
-				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
 		         	<strong> Clustering Yearly Supply Releases </strong> 
 		         	<br><br>
@@ -1120,7 +1035,6 @@ ALTER TABLE bxgxdiff_fda DROP COLUMN ndadrug;
 
 		<div id="fin_head" position="fixed" class="container">
 		   <div class="row">
-				<div class="col-md-1"> </div>
 		      	<div class="col-md-9" style="font-size:45px;">
 		      		<br>
 		         	<strong> Project Conclusions </strong> 
