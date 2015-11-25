@@ -438,6 +438,8 @@ CREATE TABLE bxgxdiff_fda AS
 
 	            });
 
+
+
 				var ticks = [2,4,6,8,10,12,14,16,18]
 
 	            //Axis settings
@@ -594,11 +596,9 @@ CREATE TABLE bxgxdiff_fda AS
 
 				d3.json(filename,function(data) {
 					nv.addGraph(function() {
-						var chart = nv.models.lineChart()
-		                		.options({
-							                transitionDuration: 500,
-							                useInteractiveGuideline: true
-							            });
+						var chart = nv.models.lineWithFocusChart();
+						
+						chart.useInteractiveGuideline(true);
 
 						chart.xAxis //Chart x-axis settings
 						    .axisLabel(xlabel)
@@ -607,27 +607,32 @@ CREATE TABLE bxgxdiff_fda AS
 						chart.yAxis //Chart y-axis settings
 						    .axisLabel(ylabel)
 						    .tickFormat(d3.format('f'));
-						chart.tooltip.contentGenerator(function(key) {
 
-			            	// var bxgx = key.series[0].key
-			            	// splitkey = bxgx.split('; ')
-			            	// bx = splitkey[0].split(': ')
-			            	// gx = splitkey[1].split(': ')
-			            	var x = key.series[0].values[0].x
-			            	var y = key.series[0].values[0].y
+						if (val == 1)
+						{
 
-						    var datevar = dateFromDay(Math.round(x), parseInt((x - Math.round(x)) * 365))
-						    var datestr = datevar.toString();
-						    return '<h4> &emsp;' +  parseInt(y) + ' releases </h4><h4>  &emsp;on ' + datestr.substring(4, 15)  + '  &emsp; </h4>'
-						})
+							chart.interactiveLayer.tooltip.contentGenerator(function(key) {
+
+								var x = key.value
+								var y = key.series[0].value
+
+							    var datevar = dateFromDay(Math.round(x), parseInt((x - Math.round(x)) * 365))
+							    var datestr = datevar.toString();
+							    return '<h5> &emsp;' +  parseInt(y) + ' releases </h5><h5> &emsp;on ' + datestr.substring(4, 15)  + ' </h5>'
+							})
+
+						}
 
 						d3.select('#freq svg')
 							.datum(data)
 							.call(chart);
 
-						nv.utils.windowResize(chart.update);
 
-					  return chart;
+				        nv.utils.windowResize(chart.update);
+
+				        chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
+
+					  	return chart;
 					});
 				});			
 			}
@@ -638,7 +643,7 @@ CREATE TABLE bxgxdiff_fda AS
 
 
 		<style>
-			#freq svg { width: 260%; height: 75%;}
+			#freq svg { width: 250%; height: 75%;}
 		</style>			
 
 		<center><a href="#pca" class="btn btn-dark btn-lg">&thinsp;<span class="glyphicon glyphicon-forward"></span> &nbsp; Next </a></center>		
