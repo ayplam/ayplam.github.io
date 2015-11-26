@@ -82,7 +82,7 @@ layout: gxdefault
           		return (str) 
 			} 
 
-			d3.json('drugcounthistory_line.json',function(data) {
+			d3.json('../data/drugcounthistory_line.json',function(data) {
 				nv.addGraph(function() {
 					var chart = nv.models.lineChart()
 	                		.options({
