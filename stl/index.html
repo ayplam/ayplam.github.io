@@ -1,31 +1,30 @@
 ---
-layout: testing
+layout: gxdefault
 ---
 
 <section class="content">
 
 	<section id="about" class="background">
-		<div id="decrypt" position="fixed" class="container">
+		<div id="about" position="fixed" class="container">
 		   	<div class="row">
-		   		
-		      	<div class="col-md-10" style="font-size:50px;">
-		        	<strong>  Pulmonary Vein Isolation for Atrial Fibrillation</strong>
-		      	</div>
+	        	<h1><strong>  Pulmonary Vein Isolation for Atrial Fibrillation</strong></h1>
+		        	<br>
 		    </div>
-		    <div>
-		    	<p>
+		    <div class ="row">
+		    	<h3>
 
-		    		Atrial fibrillation (AFib) is the most prevalent sustained cardiac arrhythmia
-
-
-
-		    	</p>
-
-
+		    		Atrial fibrillation (AFib) is the most prevalent sustained cardiac arrhythmia in which the atria quivers rapidly. 
+		    		Initiation of fibrillation has shown to be a result from triggers originating at the pulmonary veins. To prevent
+		    		the triggers from reaching the atria, patients can undergo pulmonary vein isolation therapy
+		    		
+		    	</h3>
 		    </div>
 
+
+		    
+
 		   	<div class="row">
-		   		<iframe src="http://ayplam.github.io/atrium/" style="height:90%; width:80%" align="center" frameborder=0, scrolling ="no">
+		   		<iframe src="http://ayplam.github.io/atrium/" style="height:90%; width:80%" align="center" frameborder=0, id="iframe">
 					<p>Your browser does not support iframes.</p>
 				</iframe>
 
@@ -37,6 +36,16 @@ layout: testing
 	    	<strong>Cool! </strong>
 	  	</div>
 	</div>
+
+	<script>
+
+		var myIframe = document.getElementById('iframe');
+		myIframe.onload = function(){
+		    myIframe.contentWindow.scrollTo(10000,8000);
+		};	
+
+
+	</script>
 
 
 	</section>
