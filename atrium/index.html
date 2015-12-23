@@ -59,8 +59,6 @@
     </head>
 
     <body>
-
-
         <script> 
 
             var camera, scene, renderer, controls, lut, geo,
@@ -111,6 +109,13 @@
 
                 var offset = 4;
                 var cnt =0;
+
+
+                console.log("loadSTL")
+                if (cdata.length == 0)
+                {
+                    setTimeout(function(){ console.log("Wait") }, 1000);
+                }
 
                 for (var i = 0; i < triangles; i++) {
                     // Get the normal for this triangle
@@ -196,6 +201,54 @@
                 stl = null;
             };  
 
+            function loadSTL() {
+
+
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if ( xhr.readyState == 4 ) {
+                        if ( xhr.status == 200 || xhr.status == 0 ) {
+                            var rep = xhr.response; // || xhr.mozResponseArrayBuffer;
+                            parseStlBinary(rep);
+                            mesh.rotation.x = 1.57;
+                            mesh.rotation.z = .25;
+                            console.log('Done parsing');
+                        }
+                    }
+                }
+                xhr.onerror = function(e) {
+                    console.log(e);
+                }
+                
+                xhr.open( "GET", '/stl/cryo013_full.stl', true );
+                xhr.responseType = "arraybuffer";
+                //xhr.setRequestHeader("Accept","text/plain");
+                //xhr.setRequestHeader("Content-Type","text/plain");
+                //xhr.setRequestHeader('charset', 'x-user-defined');
+                xhr.send( null );
+
+            }
+
+            function loadCData() {
+
+                var client = new XMLHttpRequest();
+                client.onreadystatechange = function() {
+                    if ( client.readyState == 4 ) {
+                        if ( client.status == 200 || client.status == 0 ) {
+                            var rep = client.response; // || xhr.mozResponseArrayBuffer;
+                            console.log(rep.length)
+
+                            cdata = rep.split(",")
+                        }
+                    }                    
+                }
+
+                // false makes it a synchronous call
+                client.open('GET', 'cdata.txt', false);
+                client.send( null );                   
+
+            }
+
 
             init();
             animate();
@@ -230,48 +283,8 @@
                 directionalLight2.position.normalize();
                 scene.add( directionalLight2 );
 
-
-                var client = new XMLHttpRequest();
-                client.onreadystatechange = function() {
-                    if ( client.readyState == 4 ) {
-                        if ( client.status == 200 || client.status == 0 ) {
-                            var rep = client.response; // || xhr.mozResponseArrayBuffer;
-                            console.log(rep.length)
-
-                            cdata = rep.split(",")
-                        }
-                    }                    
-                }
-
-                client.open('GET', 'cdata.txt');
-                client.send( null );                
-
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
-                    if ( xhr.readyState == 4 ) {
-                        if ( xhr.status == 200 || xhr.status == 0 ) {
-                            var rep = xhr.response; // || xhr.mozResponseArrayBuffer;
-                            parseStlBinary(rep);
-                            mesh.rotation.x = 1.57;
-                            mesh.rotation.z = .25;
-                            console.log('Done parsing');
-                        }
-                    }
-                }
-                xhr.onerror = function(e) {
-                    console.log(e);
-                }
-                
-                xhr.open( "GET", '/stl/cryo013_full.stl', true );
-                xhr.responseType = "arraybuffer";
-                //xhr.setRequestHeader("Accept","text/plain");
-                //xhr.setRequestHeader("Content-Type","text/plain");
-                //xhr.setRequestHeader('charset', 'x-user-defined');
-                xhr.send( null );
-
-
-
-
+                loadCData()
+                loadSTL()
 
                 renderer = new THREE.WebGLRenderer( {alpha: true} ); //new THREE.CanvasRenderer();
                 renderer.setSize( window.innerWidth, window.innerHeight );
