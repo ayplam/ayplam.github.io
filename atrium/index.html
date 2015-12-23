@@ -148,7 +148,7 @@
 
                 var lutColors = [];
 
-                console.log("TESTING",cdata.length)
+                console.log("TESTING12",cdata.length)
                 console.log(vertices.length)
 
                 lut = new THREE.Lut( colorMap, numberOfColors );
@@ -156,9 +156,9 @@
                 lut.setMax( 2000 );
                 lut.setMin( 0 );
 
-                for ( var i = 0; i < vertices.length*3; i++ ) {
+                for ( var i = 0; i < cdata.length; i++ ) {
 
-                    color = lut.getColor( Math.random()*2000 );
+                    color = lut.getColor( parseFloat(cdata[i])*3000 );
 
                     if ( color == undefined ) {
 
