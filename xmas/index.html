@@ -1,0 +1,135 @@
+---
+layout: xmas
+---
+
+<section class="content">
+
+	<section id="about" class="background">
+
+
+		<div class="background" id="divinput">
+		  	<div class="intransbox">
+		  		<div class="row" style="font-size:40px;">
+		  			<br>
+		  			<center>
+		  			<strong>  Please Enter Your Name </strong>
+		  			</center>
+			   </div>
+
+			    <form>
+					<div class="form-group">
+						<p>
+					    	<label for="input1">First name</label>
+					    	<input type="string" class="form-control" id="input1" placeholder="Bob">
+
+							<label for="input2">Last name</label>
+					    	<input type="string" class="form-control" id="input2" placeholder="Dole">			    	
+					    	<br>
+							<button type="button" class="btn btn-danger btn-large btn-block" onclick="readname()" stlye="font-size:30px"><br><b>Find Your Card!</b><br><br></button>
+							<br>
+						</p>
+
+				    </div>
+				</form>
+
+			</div>
+
+		</div>
+
+		<div class="background" id="divoutput" style="display:none">
+		  	<div class="transbox">		
+
+		  		<div style="font-family:Tangerine; font-size:68px; text-align:center; font-weight:bold">
+		  			<br>
+		  			Happy Holidays!
+		  			<br>
+		  		</div>
+
+				<div id="output1" style="font-family:Lora; font-size:20px; padding:0% 5% 0% 5%; line-height:150%"> 
+				</div>				
+
+				<div style="font-family:Tangerine; font-size:40px; text-align:center">
+					<br>
+		  			Warmest Regards,
+		  			<br>
+		  			Tiffany and Adrian
+		  			<br><br>
+		  		</div>
+
+				
+			<center>
+		  		<img src="http://i.imgur.com/IwocOAO.jpg?1" width="400" height="400" >
+		  		<img src="http://i.imgur.com/SW8BEDV.jpg?1" >
+		  	</center>
+
+		  	<br><br>
+
+		  	</div>
+
+		</div>
+
+		<script> 
+
+			var alldata
+
+
+			function readname()
+			{
+				var fn = document.getElementById('input1').value;
+				var ln = document.getElementById('input2').value;
+				console.log(fn,ln)
+
+
+                var client = new XMLHttpRequest();
+                client.onreadystatechange = function() {
+                    if ( client.readyState == 4 ) {
+                        if ( client.status == 200 || client.status == 0 ) {
+                            var rep = client.response; // || xhr.mozResponseArrayBuffer;
+
+                            alldata = rep
+                        }
+                    }                    
+                }
+
+                // false makes it a synchronous call
+                client.open('GET', 'data.tsv', false);
+                client.send( null );
+
+                
+                alldata = alldata.replace(/(\r\n|\n|\r)/gm,"\t");
+
+                data = alldata.split('\t')
+                                
+                for (var i=0; i < data.length/3; i++)
+                {
+					// document.getElementById("output1").innerHTML = "Sorry, please try re-entering your name!"
+                	if ( ( data[i*3].toLowerCase() == fn.toLowerCase() ) &&
+                		( data[i*3 + 1].toLowerCase() == ln.toLowerCase() ) )
+                	{
+
+                		document.getElementById("output1").innerHTML = data[i*3 + 2]
+                		break
+
+	               	} else {
+
+	               		document.getElementById("output1").innerHTML = "<b>Sorry! Please refresh and try again</b>"
+
+	               	}
+
+                }
+
+                $("#divoutput").fadeIn("slow");
+                $("#divinput").hide();
+
+                
+			}
+
+
+		</script>
+
+	</section>
+
+
+
+
+</section>
