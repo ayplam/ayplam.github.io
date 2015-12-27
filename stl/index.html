@@ -103,15 +103,14 @@ layout: gxdefault
 			    		 the atrial wall with a <b>K-Nearest Neighbors</b> algorithm </h3> 
 			    	</div>
 			    </div>
-			    <br>
+			    <br><br>
 		    </div>			    
 		    </div>
 
 			<div>
-				<div style="float:left; margin-top:50px" align="center">
-					<h2><center> Left Atrium with Scar Intensity Overlay </center></h2>
-				</div>								
-				<iframe src="http://ayplam.github.io/atrium/" style="height:100%; width:110%; float:left" align="center" scrolling="no" frameborder=0, id="iframe">
+				<h1><center> <b><i> Left Atrium with Scar Intensity Overlay </b></i> </center></h1>
+				<!-- scrolling="no"  -->
+				<iframe src="http://ayplam.github.io/atrium/" style="height:100%; width:110%; float:left" align="center" frameborder=0, id="atriumstl">
 					<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>
@@ -126,10 +125,12 @@ layout: gxdefault
 
 	<script>
 
-		var myIframe = document.getElementById('iframe');
-		myIframe.onload = function(){
-		    myIframe.contentWindow.scrollTo(10000,8000);
-		};	
+		// var myIframe = document.getElementById('atriumstl');
+		// console.log(myIframe)
+		// myIframe.onload = function(){
+		//     // myIframe.contentWindow.scrollTo(10000,8000);
+		    
+		// };	
 
 		(function(d, t) {
 		    var g = d.createElement(t),
@@ -137,6 +138,15 @@ layout: gxdefault
 		    g.src = 'http://assets.gfycat.com/js/gfyajax-0.517d.js';
 		    s.parentNode.insertBefore(g, s);
 		}(document, 'script'));
+
+		$(window).load(function ()
+		{
+		    setTimeout(function ()
+		    {
+		        var $contents = $('#atriumstl').contents();
+		        $contents.scrollTop($contents.height());
+		    }, 3000); // ms = 3 sec
+		});
 
 		//https://gfycat.com/FeminineNeatHowlermonkey
 
