@@ -43,6 +43,11 @@
     </head>
 
     <body>
+
+        <style>
+            body { margin-top: -100px; }
+        </style>
+
         <script> 
 
             var camera, scene, renderer, controls, lut, geo,
@@ -137,8 +142,6 @@
 
                 var lutColors = [];
 
-                console.log("TESTING12",cdata.length)
-                console.log(vertices.length)
 
                 lut = new THREE.Lut( colorMap, numberOfColors );
 
@@ -270,7 +273,7 @@
                 loadSTL()
 
                 renderer = new THREE.WebGLRenderer( {alpha: true} ); //new THREE.CanvasRenderer();
-                renderer.setSize( window.innerWidth, window.innerHeight );
+                renderer.setSize( Math.round(window.innerWidth*0.8), window.innerHeight );
                 renderer.setClearColor( 0xffffff, 0 );
 
                 document.body.appendChild( renderer.domElement );
@@ -400,7 +403,7 @@
 
         </script>
 
-    <br><br><br><br><br><br>
+    <br><br><br><br>
 
     </body>
 
