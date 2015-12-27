@@ -262,7 +262,7 @@
                 numberOfColors = 512;                
 
                 camera = new THREE.PerspectiveCamera( 10000, window.innerWidth / window.innerHeight, 1, 10000 );
-                camera.position.z = 90;
+                camera.position.z = 85;
                 camera.position.y = -5;
                 camera.position.x = 0;
                 scene.add( camera );
@@ -327,8 +327,8 @@
                 renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
                 renderer.domElement.addEventListener( 'mouseout', onDocumentMouseOut, false );
 
-                mouseXOnMouseDown = event.clientX - windowHalfX;
-                mouseYOnMouseDown = event.clientY - windowHalfY;
+                mouseXOnMouseDown = event.clientX - windowHalfX; 
+               mouseYOnMouseDown = event.clientY - windowHalfY;
                 targetRotationXOnMouseDown = targetRotationX;
                 targetRotationYOnMouseDown = targetRotationY;
 
