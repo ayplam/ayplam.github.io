@@ -110,7 +110,7 @@ layout: gxdefault
 			<div>
 				<h1><center> <b><i> Left Atrium with Scar Intensity Overlay </b></i> </center></h1>
 				<!-- scrolling="no"  -->
-				<iframe src="http://ayplam.github.io/atrium/" style="height:100%; width:110%; float:left" align="center" frameborder=0, id="atriumstl">
+				<iframe src="http://ayplam.github.io/atrium/" style="height:100%; width:100%; float:left" align="center" frameborder=0, id="atriumstl">
 					<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>
@@ -125,13 +125,6 @@ layout: gxdefault
 
 	<script>
 
-		// var myIframe = document.getElementById('atriumstl');
-		// console.log(myIframe)
-		// myIframe.onload = function(){
-		//     // myIframe.contentWindow.scrollTo(10000,8000);
-		    
-		// };	
-
 		(function(d, t) {
 		    var g = d.createElement(t),
 		        s = d.getElementsByTagName(t)[0];
@@ -145,7 +138,10 @@ layout: gxdefault
 		    {
 		        var $contents = $('#atriumstl').contents();
 		        $contents.scrollTop($contents.height());
-		    }, 3000); // ms = 3 sec
+		    }, 2000); // ms = 3 sec
+
+		    $('#atriumstl').attr('scrolling','no')
+
 		});
 
 		//https://gfycat.com/FeminineNeatHowlermonkey
