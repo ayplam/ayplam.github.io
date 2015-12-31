@@ -45,7 +45,7 @@
     <body>
 
         <style>
-            body { margin-top: -100px; }
+            body { margin-top: -190px; }
         </style>
 
         <script> 
@@ -249,7 +249,7 @@
                 numberOfColors = 512;                
 
                 camera = new THREE.PerspectiveCamera( 10000, window.innerWidth / window.innerHeight, 1, 10000 );
-                camera.position.z = 85;
+                camera.position.z = 95;
                 camera.position.y = -5;
                 camera.position.x = 0;
                 scene.add( camera );
@@ -273,7 +273,7 @@
                 loadSTL()
 
                 renderer = new THREE.WebGLRenderer( {alpha: true} ); //new THREE.CanvasRenderer();
-                renderer.setSize( Math.round(window.innerWidth*0.8), window.innerHeight );
+                renderer.setSize( Math.round(window.innerWidth*0.8), Math.round(window.innerHeight*0.8) );
                 renderer.setClearColor( 0xffffff, 0 );
 
                 document.body.appendChild( renderer.domElement );
