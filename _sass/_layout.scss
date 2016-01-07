@@ -4,7 +4,7 @@
     outline: none;
     display: block;
     width: $banner-width;
-    height: $banner-height;
+    height: $banner-height/2;
     margin: 0 auto 35px;
     position: relative; /* To ensure the bottom border is positioned correctly */
 
@@ -43,7 +43,7 @@
     text-align: center;
 
     &::after {
-        @include retina-background-image($img-dude);
+        // @include retina-background-image($img-dude);
         display: block;
         content: "";
         width: 65px;
