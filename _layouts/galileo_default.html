@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    {% include galileo_head.html %}
+    <body class="is-offset {% unless site.typekit_kit_id %}wf-inactive{% endunless %}">
+        {% include galileo_header.html %}
+        <section role="main">
+            {{ content }}
+        </section>
+        {% include galileo_footer.html %}
+        <script type="text/javascript" src="{{ site.baseurl }}/js/galileo.js"></script>
+    </body>
+</html>

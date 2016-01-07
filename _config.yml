@@ -9,4 +9,13 @@ baseurl: "/"
 url: "ayplam.github.io" # the base hostname & protocol for your site
 highlighter: pygments
 # Build settings
+gems: [jekyll-paginate]
 markdown: redcarpet
+permalink: pretty
+
+# Pagination
+paginate: 5
+
+# Sass
+sass:
+    style: :compressed
