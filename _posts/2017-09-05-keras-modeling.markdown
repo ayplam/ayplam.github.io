@@ -2,14 +2,10 @@
 layout: galileo_post
 title:  Diving into Keras 
 date:   2017-09-05 13:05:14 +0100
-description: Switching from Scala back to Python always takes a little bit...
+description: Switching from Scala back to Python always takes some...
 ---
 
-<style>
-
-</style>
-
-Switching from Scala back to Python always takes a little bit of adjusting. Constantly getting this error is a little infuriating:
+Switching from Scala back to Python always takes some adjusting. Constantly getting this error is a little infuriating:
 {% highlight python %}
 >>> val a = 'hello'
   File "<stdin>", line 1

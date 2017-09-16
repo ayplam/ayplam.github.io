@@ -1,0 +1,20 @@
+---
+layout: galileo_post
+title:  Bootcamped
+date:   2017-09-16 11:59:14 +0100
+description: I never thought I would end up in data science...
+author_description: LALAL
+---
+
+I actually never thought I would end up in data science. Truthfully, when I heard about the opportunity to participate in a boot camp for data science, I didn't quite know what I was getting into. All I knew was that it was free so the only risk to me was my time.
+
+The application process was pretty interesting and took me ~60 hours to complete, and I think I approached it slightly differently from others. Usually for things like these, there are two parts - there's the test-like portion in which there is a correct answer and an open-ended portion where you get to show a little bit of yourself. I definitely spent a significant amount of time outside of the application thinking about how I should make mine stand out, and it was definitely fortuitous for me that it worked out.
+
+The bootcamp itself kicked my ass. I describe it as the most intense two months of my life, because in that span of two months, I learned
+
++ How to code in SQL, Python and Scala
++ The fundamentals of machine learning
++ Mapreduce and Spark
++ Interview skills 
+
+and this was coming in with a background of MATLAB, a tiny bit of C++ and some image processing knowledge. It was downright brutal. For five days a week, every week, I would start at 9AM with a lecture, then work on a variety of projecs until about 8PM. I'd go home, eat dinner, then continue working until about 11PM, then go to bed. I'd frequently also have to take at least Saturday to continue working since there was so much work left to be completed.
