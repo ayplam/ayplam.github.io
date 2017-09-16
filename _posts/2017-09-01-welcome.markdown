@@ -1,0 +1,14 @@
+---
+layout: galileo_post
+title:  Welcome
+date:   2017-09-01 13:05:14 +0100
+description: Welcome! For those of you who have come here accidentally...
+---
+
+Welcome!
+
+For those of you who have come here accidentally, you have come to my professional brain dump.
+For those of you who have come here intentionally, you have too much time on your hands to go through my github.
+
+I've always wanted to keep a consistent blog, and I've felt that a journal which details my career as a data scientist might be useful one day. Possibly for those looking to get into data science, to peek into my life at the challenges that one might face, or to see what skills are necessary to breach this ever-growing field. But for me, this is simply a documentation of my journey as a data scientist, one (or two...or four) weeks at a time.
+

@@ -27,12 +27,26 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:700|Sanchez" type="text/css">
   <link rel="stylesheet" href="{{ "{{ site.baseurl }}/css/bootstrap.min.css" | prepend: site.baseurl }}">
   <link rel="stylesheet" href="{{ "{{ site.baseurl }}/css/screen.css" | prepend: site.baseurl }}">
+  <link rel="stylesheet" href="{{ "{{ site.baseurl }}/css/nv.d3.css" | prepend: site.baseurl }}">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
 
   <link rel="stylesheet" href="{{ "{{ site.baseurl }}/js/highlight/styles/monokai_sublime.css" | prepend: site.baseurl }}">
+  
   <script type="text/javascript" src="{{ "{{ site.baseurl }}/js/highlight/highlight.pack.js" | prepend: site.baseurl }}"></script>
+  <script type="text/javascript" src="{{ "{{ site.baseurl }}/js/jquery.min.js" | prepend: site.baseurl }}"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <!--
+  <script type="text/javascript" src="{{ "{{ site.baseurl }}/js/shBrushPython.js" | prepend: site.baseurl }}"></script>
+  <script type="text/javascript" src="{{ "{{ site.baseurl }}/js/shCore.js" | prepend: site.baseurl }}"></script>  
+  <script type="text/javascript" src="{{ "{{ site.baseurl }}/js/shAutoloader.js" | prepend: site.baseurl }}"></script>  
+  <script type="text/javascript" src="{{ "{{ site.baseurl }}/js/shLegacy.js" | prepend: site.baseurl }}"></script>  -->
+
+
   <script>
     hljs.initHighlightingOnLoad();
+    // SyntaxHighlighter.all();
+
   </script>      
 </head>
