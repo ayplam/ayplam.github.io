@@ -4,6 +4,16 @@ title:  Diving into Keras
 date:   2017-09-05 13:05:14 +0100
 description: Switching from Scala back to Python always takes some...
 ---
+<style>
+pre code {
+	font-size: 15px;
+}
+pre {
+	padding: 6px;
+}
+
+</style>
+
 
 Switching from Scala back to Python always takes some adjusting. Constantly getting this error is a little infuriating:
 {% highlight python %}
