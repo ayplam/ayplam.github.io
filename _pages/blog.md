@@ -8,31 +8,39 @@ permalink: /blog/
 <style>		
 
 .post-meta {
-    font-size: 14px;
+	font-family: Palatino;
+    font-size: 16px;
     color: #828282;
 }
 
 .post-link {
+	font-family: Palatino;
     display: block;
     font-size: 24px;
+    margin: 10px 0px 0px 0px;
 }
 
 .light-font {
+	font-family: Palatino;
     color: #b5b5b5;
 }
 
 a {
+	font-family: Palatino;
     color: #2a7ae2;
     text-decoration: none;
 }
 </style>
 
-<h1>Posts</h1>
-<br><br>
+# Posts
+
 {% for post in site.posts %}
 <span class="post-meta">{{ post.date | date: "%b %d, %Y" }}</span>
-<span class="post-link"><a href="{{ post.url }}">{{ post.title }} </a></span>
+<span class="post-link">
+	<a href="{{ post.url }}">{{ post.title }} </a>
+</span>
 <p class="small light-font">
 {{ post.description }}
 </p>
+<span class="post">
 {% endfor %}
