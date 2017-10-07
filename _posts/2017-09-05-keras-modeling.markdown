@@ -20,10 +20,8 @@ I decided to try using Keras for some neural netting to solve a modeling problem
 
 All in all, this week was pretty intense. While I have a repository of Scala code I can work off of, I unfortunately have no Python code. And since I have no framework for building up Keras models, figuring out something that would be re-usable is ideal. But for those looking to get into Keras, I think the most important takeaways from this week's modeling were
 
-1. **Generators** - This is something I still have to figure out the best way to do - but essentially, what happens when your data is too big to fit in memory? The answer is - batched inputs with generators. I personally like hdf5 files because their speed in handling large matrices is way better than your standard pickle.
-
-2. **Checkpointing** - Saving the best model at each epoch allows you to potentially inspect before the job is done. It also allows you to restart your model from any point in case your job crashes for whatever reason
-
-3. **Early Stopping** - I'm not sure if I'm using this properly, but being able to set the epochs to 1000 and just wait for early stopping to kick in is awfully convenient. I'm not a fan of coming back to my model, only to find out it hasn't converged yet.
+* **Generators** - What happens when your data is too big to fit in memory? The answer is - batched inputs with generators. I personally like hdf5 files because its speed in handling large matrices is way better than your standard pickle.
+* **Checkpointing** - Saving the best model at each epoch allows you to potentially inspect before the job is done. It also allows you to restart your model from any point in case your job crashes for whatever reason
+* **Early Stopping** - Being able to set the epochs to 1000 and just wait for early stopping to kick in is awfully convenient. I'm not a fan of coming back to my model, only to find out it hasn't converged yet.
 
 Most of this code was picked up online, on the fly. I would highly recommend [Jason Brownlee's blog](https://machinelearningmastery.com/check-point-deep-learning-models-keras/), which contains many examples of these features (and more!) available in Keras.

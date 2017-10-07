@@ -435,18 +435,28 @@ th {
 h1,
 h2,
 h3,
-h4,
-ul {
-  margin: 0;
+h4
+
+ol, ul, li {
+  line-height: 1.6;
+  list-style: none;
 }
+
+ol li {
+  list-style-type: decimal;
+}
+
+ul li:before {    
+    font-family: 'FontAwesome';
+    content: '\f046';
+    margin:0 10px 0 0px;
+    font-size:11px;
+}
+
 
 /**
  * Remove padding and list style from lists
  */
-ul {
-  padding: 0;
-  list-style: none;
-}
 
 /**
  * Fix line-height for code blocks

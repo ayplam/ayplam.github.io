@@ -3,18 +3,28 @@ layout: galileo_post
 title:  Bootcamped
 date:   2017-09-16 11:59:14 +0100
 description: I never thought I would end up in data science...
-author_description: LALAL
 ---
 
-I actually never thought I would end up in data science. Truthfully, when I heard about the opportunity to participate in a boot camp for data science, I didn't quite know what I was getting into. All I knew was that it was free so the only risk to me was my time.
+I never thought I would end up in data science. I never even heard of the topic until I started thinking about what I should do after graduate school, when I stumbled across the bootcamp opportunity in my inbox from my department's mailing list. So I took a look - it seemed pretty interesting, so why the hell not. After all, it was free so the only risk to me was my time.
 
-The application process was pretty interesting and took me ~60 hours to complete, and I think I approached it slightly differently from others. Usually for things like these, there are two parts - there's the test-like portion in which there is a correct answer and an open-ended portion where you get to show a little bit of yourself. I definitely spent a significant amount of time outside of the application thinking about how I should make mine stand out, and it was definitely fortuitous for me that it worked out.
+The application process was pretty interesting and took me ~60 hours to complete. There were two parts: the test-like part which has a correct answer and an open-ended part where you had to come up with a data science project and pitch it. The people who care about the application will complete the test portion without issue since it's essentially a Nike coding challenge - you just have to do it. On top of that, the test portion was technically optional. So it became quite obvious that the differentiating factor would be the open-ended section. 
 
-The bootcamp itself kicked my ass. I describe it as the most intense two months of my life, because in that span of two months, I learned
+At the time, I considered myself lucky because at the time I only knew MATLAB which is *awful* at handling big data - but I had an i7 with 64GB of RAM on my side so I brute-forced my way through the test portion over a weekend. The open-ended part was a different story, and took the majority of my time. I definitely spent a significant amount of time researching what makes a data science project good and to try to figure out how I could make mine stand out. I ended up with a project that coincidentally crossed a few data science topics including web scraping and NLP.
 
-+ How to code in SQL, Python and Scala
-+ The fundamentals of machine learning
-+ Mapreduce and Spark
-+ Interview skills 
+I think I approachd the elevator pitch part differently than most. Since candidates were supposed to upload their pitch videos onto Youtube, I hopped on, did a quick search, and found plenty of examples. So I sat there listening to all these pitches, and after about five	 of them concluded, "Good god, these are *BORING*!!". Many started with "My project is about...", some went too technical, and most didn't leave much of an impact - they were essentially simply descriptions of their project. I'm not an expert in elevator pitches, but to me, pitches need to be both captivating and convincing. It's not about describing, it's about selling. So while causation isn't correlation, it must have worked to some degree because I ended up getting accepted.
 
-and this was coming in with a background of MATLAB, a tiny bit of C++ and some image processing knowledge. It was downright brutal. For five days a week, every week, I would start at 9AM with a lecture, then work on a variety of projecs until about 8PM. I'd go home, eat dinner, then continue working until about 11PM, then go to bed. I'd frequently also have to take at least Saturday to continue working since there was so much work left to be completed.
+The bootcamp itself kicked my ass. I describe it as the most intense two months of my life, because in that time, I learned:
+
+* How to code in SQL, Python, and Scala
+* Tools for web scraping 
+* The fundamentals of machine learning
+* Basics of natural language processing
+* Distributed computing, mapreduce and Spark on EMR
+* Data visualization and web development
+* Interview skills - interpersonal, coding, statistics, and case studies 
+
+Coming into the program with a background of MATLAB and a tiny bit of C++, it was brutal. For six continuous weeks, I would start at 9AM with a lecture, then work on a variety of projecs until about 8PM. I'd go home, eat dinner, continue working until about 11PM, then go to bed. Rinse and repeat. Oftentimes, I'd take Saturday to continue working since there was so much left to be completed.
+
+At the end of the trials and tribulations, I didn't get hired by one of their partners. Only one person out of our little cohort or 10 in the Bay Area ended up getting hired by one of their partners. But the knowledge that I gained from those weeks was incredible. I look back and can't fathom how I ended up surviving that hellish trial by fire, but I am definitely grateful that I landed that opportunity.
+
+And just in case anyone is curious in watching my pitch you can find it here: [https://youtu.be/QEeGGuKTEwA](https://youtu.be/QEeGGuKTEwA)
