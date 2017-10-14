@@ -34,6 +34,16 @@ a {
 
 # Posts
 
+{% for post in paginator.posts %}
+  HELLO
+  {% include post.html post=post content=post.content %}
+{% endfor %}
+
+{% if paginator.total_pages > 1 %}
+    {% include pagination.html maxPages=5 %}
+{% endif %}
+
+
 {% for post in site.posts %}
 <span class="post-meta">{{ post.date | date: "%b %d, %Y" }}</span>
 <span class="post-link">
@@ -44,3 +54,4 @@ a {
 </p>
 <span class="post">
 {% endfor %}
+
