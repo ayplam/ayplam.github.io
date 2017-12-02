@@ -1,0 +1,26 @@
+---
+layout: galileo_post
+title:  Windows Trouble
+date:   2017-12-01 21:23:38 +0100
+description: Data science as a team effort...
+---
+<style>
+code {
+	font-size: 15px;
+}
+
+</style>
+
+I've been wondering about how to do a data science project as a team.
+
+From a workflow perspective, there are three main portions of data science (assuming you already have and understand the data): feature engineering, modeling, and evaluation. For now, I'm going to tie together the modeling and evaluation because whoever built the model is the best person to evaluate it.
+
+Naturally, you can't just split up feature engineering and modeling between different people because the modeling guy is blocked until feature engineering finishes. So it seems like the best thing to do is divide feature engineering into a couple independent paths, merge back together, then divide modeling into a few independent paths.
+
+There are a few problems that I've run into with this method
+* When the merge happens between different feature engineering paths, one person is going to own that merge. That person will be the goto for any changes that need to be made. What happens when new changes in feature engineering need to be made before modeling can continue?
+* What if you can't divide into enough parallel paths? What if there's 3 people and you can only think up of 2 different things? Do you try to magically find a 3rd? 
+* Tasks are always complete ASAP - but happens to the weakest link? How do you properly integrate that into everyone's workflow?
+
+In essence - is there a better way to divide and conquer to ensure nobody gets blocked? To maximize everyone's efficiency? I guess the best I can think of for now is that I might need to start planning better. Look at least a couple weeks ahead, try to figure out where I want to be, then see if I can fill in all the tasks in between.
+
