@@ -1,6 +1,6 @@
 ---
 layout: galileo_post
-title:  Windows Trouble
+title:  No I in Team
 date:   2017-12-01 21:23:38 +0100
 description: Data science as a team effort...
 ---
