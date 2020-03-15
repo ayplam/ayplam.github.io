@@ -1,0 +1,14 @@
+Adrian Lam:
+  name        : "Adrian Lam"
+  bio         : "Data Scientist SGDing through life"
+  avatar      : "/assets/images/bio-photo-2.jpg"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:ayplam@gmail.com.com"
+    - label: "Github"
+      icon: "fas fa-fw fa-link"
+      url: "https://www.github.com/ayplam"
+    - label: "Medium"
+      icon: "fab fa-fw fa-medium"
+      url: "https://www.medium.com/@ayplam"
