@@ -35,4 +35,6 @@ feature_row:
 
 {% include feature_row id="intro" type="center" %}
 
-{% include feature_row %}
+### Welcome
+
+Under construction, but feel free to look around. Sometimes, the journey as just as important as the ending. 
