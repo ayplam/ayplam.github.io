@@ -4,19 +4,41 @@ author_profile: true
 permalink: /resume/
 ---
 
-<h2>Overview</h2>
+## Resume
+
+[Resume](../LamAdrian_Resume.pdf)
+
+## tl;dr
 
 <div class="timeline">
 <ul>
     <li>
     <div class="content">
         <h3>Georgia Institute of Technology</h3>
-        <p>Home Depot bypass surgeries cause strange blood flow patterns. MRI can highlight scar tissue that affect cardiac rhythm disorders</p>
+        <p>Get a PhD they said. It will be fun they said</p>
+    </div>
+    <div class="time">
+        <h4>Aug 2010</h4>
+    </div>
+    </li>
+    <li>
+    <div class="content">
+        <h3>MRI meets Computational Fluid Dynamics</h3>
+        <p>Home Depot heart surgeries can reverse blood flow in the aorta</p>
+    </div>
+    <div class="time">
+        <h4>Nov 2012</h4>
+    </div>
+    </li>    
+    <li>
+    <div class="content">
+        <h3>MRI meets Cardiac Arrhythmias</h3>
+        <p>Programmed the MRI to do my bidding. Cardiac scar tissue can be good or bad, depending on where it is.</p>
     </div>
     <div class="time">
         <h4>Aug 2015</h4>
     </div>
-    </li>
+    </li>    
     <li>
     <div class="content">
         <h3>The Data Incubator: Fellow</h3>
@@ -29,7 +51,7 @@ permalink: /resume/
     <li>
     <div class="content">
         <h3>Graduated from Georgia Tech</h3>
-        <p>Became a doctor, but not the kind they ask for on a plane</p>
+        <p>Became a doctor, but not the kind they ask for on an airplane</p>
     </div>
     <div class="time">
         <h4>Dec 2015</h4>
@@ -47,7 +69,7 @@ permalink: /resume/
     <li>
     <div class="content">
         <h3>SAP: Data Scientist</h3>
-        <p>Surpassed expectations, promoted to full time. Developed graph algorithm based on NLP dependency trees to power enterprise-focused chatbot. </p>
+        <p>Surpassed expectations; promoted to full time. Developed graph algorithm based on NLP dependency trees to power enterprise-focused chatbot. </p>
     </div>
     <div class="time">
         <h4>Apr 2016</h4>
@@ -56,7 +78,7 @@ permalink: /resume/
     <li>
     <div class="content">
         <h3>Change Healthcare: Data Scientist</h3>
-        <p>Healthcare is complex and people make poor decisions. Aiming to reduce this with AI to make healthcare faster, better and cheaper</p>
+        <p>Healthcare is complex so people make poor decisions. Aiming to reduce this with AI to make healthcare faster, better and cheaper</p>
     </div>
     <div class="time">
         <h4>May 2017</h4>
