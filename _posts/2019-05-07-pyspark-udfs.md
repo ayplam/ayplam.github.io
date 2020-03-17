@@ -44,9 +44,9 @@ def say_hello(name):
 df.withColumn("greetings", say_hello(col("name")).show()
 ```
 
-I prefer this pattern over the previous one since the only function to manage in the code is the pyspark one — the regular python one isn’t really necessary anymore.
+I prefer this pattern over the previous one since the only function to manage in the code is the pyspark one — the regular python one isn't really necessary anymore.
 
-That doesn’t mean that the regular python function isn’t helpful anymore. Typically, developing pyspark UDFs means that a regular python function is first created, tested, then turned into a pyspark UDF. This allows testing to be performed on less data to confirm functionality prior to scaling up to whatever size data is desirable. In general, it leads to more rapid development since bugs can be caught faster and earlier, as opposed to 5 minutes later after waiting for a spark job to be submitted, run, and then hunting through YARN logs to find the error.
+However, the original python function could still be useful. Typically, developing pyspark UDFs means that an ordinary python function is first created, tested, then turned into a pyspark UDF. This allows testing to be performed on less data to confirm functionality prior to scaling up to whatever size data is desirable. In general, it leads to more rapid development since bugs can be caught faster and earlier, as opposed to 5 minutes later after waiting for a spark job to be submitted, run, and then hunting through YARN logs to find the error.
 
 But what if you need to change the method’s functionality after going through this cycle? What happens to the tests that you spent developing to ensure proper functionality? You could comment out the decorator line and turn the function back into a regular python method to go back into development and testing. But is there a way around this?
 
@@ -76,12 +76,14 @@ class py_or_udf:
 def say_hello(name):
      return f"Hello {name}"
 
-assert say_hello("world") == "Hello world" #This works
-df.withColumn("greeting", say_hello(col("name"))).show() # This also works
+# The function can be used as a regular python function
+assert say_hello("world") == "Hello world" 
+# Or as a spark udf
+df.withColumn("greeting", say_hello(col("name"))).show() 
 ```
 
 This is currently my most preferred pattern of development, as it simultaneously allows rapid development and testing in python as well as functional usage as a pyspark UDF without any changes. If there are other “Spark Pro Tips” I would be happy to hear more!
 
-#### References
+## References
 
-[1] https://python-3-patterns-idioms-test.readthedocs.io/en/latest/PythonDecorators.html
+1. https://python-3-patterns-idioms-test.readthedocs.io/en/latest/PythonDecorators.html

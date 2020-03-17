@@ -6,9 +6,9 @@ permalink: /resume/
 
 ## Resume
 
-[Resume](../LamAdrian_Resume.pdf)
+Please find [here](../LamAdrian_Resume.pdf) for my full resume or find the abridged version below.
 
-## tl;dr
+### tl;dr
 
 <div class="timeline">
 <ul>
