@@ -1,19 +1,10 @@
 ---
 title: "Bootcamped"
-excerpt: "Data Science - an unexpected pivot in my career"
+excerpt: "Data Science - an unexpected career pivot"
 author_profile: True
 tags:
   - datascience
 
-gallery:
-  - url: /images/UniqueWordsOneVsFive_mini.tif
-    image_path: /images/UniqueWordsOneVsFive_mini.tif
-    alt: "Original visualization used back in 2015."
-    title: "Image 1 title caption"
-  - url: /images/UniqueWordsOneVsFive_mini.tif
-    image_path: /images/yelp_bars_reviews.png
-    alt: "placeholder image 2"
-    title: "Sample wordcloud visualization"
 ---
 
 ## An Unexpected Pivot
@@ -26,13 +17,13 @@ The application process took me ~60 hours to complete and was reasonably fun. Th
 1. A test-like portion that required analyzing a 10GB taxi dataset and 
 2. An open-ended portion that required coming up with a data science project and pitching it. 
 
-At the time, I considered myself lucky because I only knew MATLAB which is awful at handling big data - but I was armed with an i7 and 64GB of RAM. I ended up brute-forcing my way through the test portion over a weekend. However, the test portion was clearly a simple bar - completing it was good but wouldn't necessarily set you apart from other candidates. On top of that, the test portion was technically optional. So it became quite obvious that the differentiating factor would be the open-ended section.
+At the time, I considered myself lucky not because I only knew MATLAB which is awful at handling big data - but because I was armed with an i7 and 64GB of RAM. I ended up brute-forcing my way through the test portion over a weekend. However, the test portion was clearly a simple bar - completing it was good but wouldn't necessarily set you apart from other candidates. On top of that, the test portion was technically optional. So it became quite obvious that the differentiating factor would be the open-ended section.
 
 The open-ended part took a significant amount of time, and I spent hours at the beginning going through ideas given my limited skillset of Matlab, a tiny bit of C++ and even less Java. I looked online at what makes a data science project good and tried to figure out how I could make my project stand out. For some strange reason, I had previously tried some browser automation with Selenium to grab Glassdoor jobs so I thought something with webscraping was appropriate. I ended up building a scraper for Yelp reviews and doing some word analytics on the resulting reviews.
 
 And then I had to pitch my project. Since candidates were required to upload their pitch videos onto Youtube, I did my research to find some examples. I listened to a few pitches and after about five of them concluded that they were **boring AF**. All of them simply described what they did. Many started with "My project is about...", some went too technical and none of them left any lasting impacts. I'm not an expert in elevator pitches, but pitches should be captivating and persuasive - which is how I tried to build mine. So while this is an extremely small sample size of one, it must have worked to some degree because I ended up getting accepted. 
 
-in case anyone is curious in watching my pitch you can find it here: https://youtu.be/QEeGGuKTEwA
+In case anyone is curious in watching my pitch you can find it [here](https://youtu.be/QEeGGuKTEwA)
 
 ## Epilogue
 
@@ -45,4 +36,3 @@ Cut to today, I would take a much different strategy to building this. Since wor
 #### Left: One Star Reviews, Right: Five Star Reviews
 ![OneVsFiveStarWords](../images/yelp_bars_reviews.png)
 {: .full}
-

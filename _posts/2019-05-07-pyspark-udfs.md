@@ -1,6 +1,6 @@
 ---
 title: "Developing Pyspark UDFs"
-excerpt: "A post to custom sidebar content."
+excerpt: "Test driven UDF development"
 author_profile: True
 tags:
   - datascience
