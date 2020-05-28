@@ -6,7 +6,7 @@ permalink: /resume/
 
 ## Resume
 
-Please find [here](../LamAdrian_Resume.pdf) for my full resume or find the abridged version below.
+Please click [here](../LamAdrian_Resume.pdf) for my full resume or find the abridged version below.
 
 ### tl;dr
 

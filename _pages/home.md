@@ -37,4 +37,4 @@ feature_row:
 
 ### Welcome
 
-Under construction, but feel free to look around. Sometimes, the journey as just as important as the destination. 
+Under construction, but feel free to look around. Sometimes, the journey is just as important as the destination. 
